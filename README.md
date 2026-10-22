@@ -4,6 +4,8 @@ Paquet installable sur un hébergement PHP/MySQL pour gérer les morceaux, setli
 
 Ce dépôt contient la distribution **2026.10.22.25-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .25 corrige le faux succès possible d’un enregistrement Agenda vide et affiche l’état enregistré, en conservant les correctifs précédents. Les ZIP précédents restent disponibles pour retour arrière.
 
+![Accueil](toolbox.png)
+
 ## Télécharger
 
 Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.25.zip`](package/musicband-toolbox-community-2026.10.22.25.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.

@@ -2,7 +2,7 @@
 
 Paquet installable sur un hébergement PHP/MySQL pour gérer les morceaux, setlists, contacts, concerts, tâches et notifications d’un groupe.
 
-Ce dépôt contient la distribution **2026.10.22.25-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .25 corrige le faux succès possible d’un enregistrement Agenda vide et affiche l’état enregistré, en conservant les correctifs précédents. Les ZIP précédents restent disponibles pour retour arrière.
+
 
 ![Accueil](toolbox.png)
 
@@ -49,4 +49,3 @@ Pour les rappels sans visite du site, créer dans le panneau de l’hébergeur u
 
 Sauvegarder la base, les fichiers publics et le dossier privé avant transfert. Transférer le paquet complet, sans relancer `install.php`. Pour une PWA non configurée, utiliser **Upgrade → Configurer la PWA** : cette action est distincte des migrations SQL et conserve toute configuration et clé existante.
 
-Les migrations de base sont une opération séparée : les migrations 2 et 3 retirent définitivement les journaux d’import et neuf tables financières. Lire les avertissements d’Upgrade et vérifier une sauvegarde restaurable avant de les appliquer. La configuration PWA n’exige pas de déclencher ces suppressions.

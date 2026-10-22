@@ -2,17 +2,25 @@
 
 Paquet installable sur un hébergement PHP/MySQL pour gérer les morceaux, setlists, contacts, concerts, tâches et notifications d’un groupe.
 
-Ce dépôt contient la distribution **2026.10.22.24-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .24 ajoute le favicon personnalisable et conserve le correctif du champ « À travailler pour la prochaine répète ». Les ZIP .22 et .23 restent disponibles pour retour arrière.
+Ce dépôt contient la distribution **2026.10.22.25-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .25 corrige le faux succès possible d’un enregistrement Agenda vide et affiche l’état enregistré, en conservant les correctifs précédents. Les ZIP précédents restent disponibles pour retour arrière.
 
 ## Télécharger
 
-Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.24.zip`](package/musicband-toolbox-community-2026.10.22.24.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
+Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.25.zip`](package/musicband-toolbox-community-2026.10.22.25.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
 
 ## Version décompressée
 
 Le dossier [`installation/`](installation/) contient les fichiers exacts du ZIP, dont le code PHP/HTML/JavaScript distribué, les styles, dépendances et règles `.htaccess`. Il permet de consulter le code ou de transférer directement les fichiers sans extraire le paquet. Il ne contient pas les sources ni outils de préparation locaux.
 
 Pour installer depuis cette version, cloner ou télécharger le dépôt, puis transférer **le contenu de `installation/`**, fichiers cachés compris, dans le dossier web choisi. Ne pas transférer le dossier `.git`, `package/` ni le README racine. Suivre ensuite le même parcours `install.php` ou Upgrade ci-dessous. Les fichiers sont copiés sans modification du code ; ils restent soumis à la même validation manuelle que le ZIP.
+
+## Agenda : état enregistré et absence de faux succès — version 2026.10.22.25-community
+
+Le formulaire refusait mal une adresse vide : sans agenda déjà configuré, il pouvait annoncer un enregistrement tout en conservant une adresse absente. Ce cas est maintenant refusé explicitement. La page Configuration → Agenda affiche l’état enregistré sans révéler le secret. Après écriture, le réglage est relu avant de confirmer ; les messages distinguent adresse enregistrée, adresse existante conservée et agenda déconnecté. Le succès confirme la persistance du réglage, pas l’accès Google : la lecture distante reste déclenchée uniquement à l’ouverture d’Agenda.
+
+Le message « Configurer l’adresse secrète iCal » signifie que la page Agenda lit une adresse absente ; la cause exacte sur une instance n’est pas démontrée par ce seul message. Après mise à jour, recharger Configuration → Agenda, saisir l’adresse si l’état est non configuré, enregistrer puis recharger avant d’ouvrir Agenda. Ne jamais transmettre l’adresse dans un ticket, une capture ou un journal. Les configurations existantes restent conservées ; aucune migration ni réinstallation nécessaire.
+
+**Non exécuté — validation à réaliser par l’utilisateur** : sur une copie HTTPS sauvegardée, soumettre un champ vide sans réglage préalable (erreur explicite), enregistrer une adresse secrète autorisée (confirmation de relecture), puis recharger Configuration (état configuré, adresse masquée). Enregistrer vide avec adresse existante (conservation), puis ouvrir Agenda (lecture réelle ou erreur explicite de lecture Google). Vérifier déconnexion explicite, URL invalide et formulaire concurrent (refus sans remplacer l’adresse existante), droits et CSRF, et l’absence de secret dans HTML/messages/journaux. Confirmer aussi la conservation après un autre réglage de Configuration. Si l’état est configuré après rechargement mais Agenda réclame toujours une adresse, arrêter : relever version et chemin des deux pages, sans secret, pour poursuivre le diagnostic. Aucun test, lecture du secret, accès Google ou déploiement effectué par Codex. Retour arrière : restaurer les fichiers publics .24 en conservant base, adresse privée et autres réglages.
 
 ## Favicon personnalisable — version 2026.10.22.24-community
 
@@ -67,7 +75,7 @@ Les migrations de base sont une opération séparée : les migrations 2 et 3 ret
 
 Le paquet inclut catalogue, composition manuelle de setlists, variantes, exports Tempo/SACEM/Excel/impression, contacts, concerts, tâches, agenda iCal, comptes, rôles et notifications. Sound/XR18, authentification Google, publication WordPress, modules financiers et imports externes sont retirés ou désactivés dans Community. La génération automatique de setlists n’est pas portée dans cette distribution PHP.
 
-La validation exhaustive de la PWA et d’une installation neuve sur chaque hébergement reste à effectuer. La version `.24` reprend les fichiers distribués `.23` avec le favicon personnalisable ; aucune reconstruction applicative ni migration exécutée. Aucun test fonctionnel, build, déploiement ou envoi n’a été effectué pour cette publication GitHub.
+La validation exhaustive de la PWA et d’une installation neuve sur chaque hébergement reste à effectuer. La version `.25` reprend les fichiers distribués `.24` avec le correctif de confirmation Agenda ; aucune reconstruction applicative ni migration exécutée. Aucun test fonctionnel, build, déploiement ou envoi n’a été effectué pour cette publication GitHub.
 
 **Non exécuté — validation à réaliser par l’utilisateur** : sur une instance HTTPS isolée et sauvegardée, vérifier installation/reprise et verrouillage, connexion, conservation des données, catalogue/setlists/exports, droits, enregistrement du service worker dans le bon périmètre, activation d’un appareil, notification de test volontaire et compte rendu CRON. Vérifier les invitations uniquement avec des destinataires autorisés. Arrêter en cas d’erreur PHP/JavaScript, accès non autorisé, secret exposé, envoi inattendu ou donnée perdue.
 

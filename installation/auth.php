@@ -788,7 +788,7 @@ JS;
 
 // Chemin versionné unique ; les noms de feuilles viennent du code.
 function MusicbandStylesheet(string $name): string {
-    return '<link rel="stylesheet" href="'.MusicbandEscape(MusicbandBase().'css/'.$name.'.css?v=2026.10.22.24-community').'">';
+    return '<link rel="stylesheet" href="'.MusicbandEscape(MusicbandBase().'css/'.$name.'.css?v=2026.10.22.25-community').'">';
 }
 /** Cadre HTML commun : les feuilles portent la mise en page, PHP garde les droits et la CSP. */
 function MusicbandScreen(string $title, string $content, ?string $script = null, bool $connectSelf = false, string $photonUrl = '', string $headerNavigation = ''): void {
@@ -807,7 +807,7 @@ function MusicbandScreen(string $title, string $content, ?string $script = null,
     $title = MusicbandEscape($title);
     echo '<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . $title . ' · Musicband Toolbox</title>'.MusicbandPwaHead().MusicbandAppearanceHead($nonce).MusicbandStylesheet('auth').MusicbandStylesheet('common').MusicbandStylesheet('navigation');
 
-    echo '<body class="Musicband-managed"><header class="Musicband-page-header Musicband-header"><a class="Musicband-home-logo" href="' . MusicbandEscape(MusicbandBase()) . 'index.php" aria-label="Retour à l’accueil"><img src="Musicband_LOGO_URI" alt="Musicband"></a><h1 title="' . $title . '">' . $title . '</h1>'.$headerNavigation.'</header><main>' . $content . '</main><footer class="Musicband-footer" >Version web 2026.10.22.24-community</footer>' . ($script === null ? '' : '<script nonce="' . $nonce . '">' . $script . '</script>') . '</body></html>';
+    echo '<body class="Musicband-managed"><header class="Musicband-page-header Musicband-header"><a class="Musicband-home-logo" href="' . MusicbandEscape(MusicbandBase()) . 'index.php" aria-label="Retour à l’accueil"><img src="Musicband_LOGO_URI" alt="Musicband"></a><h1 title="' . $title . '">' . $title . '</h1>'.$headerNavigation.'</header><main>' . $content . '</main><footer class="Musicband-footer" >Version web 2026.10.22.25-community</footer>' . ($script === null ? '' : '<script nonce="' . $nonce . '">' . $script . '</script>') . '</body></html>';
     if (MusicbandUser()) {
         if (!function_exists('MusicbandNotificationsTriggerFallbackIfOverdue')) {
             @include_once __DIR__ . '/notifications.php';

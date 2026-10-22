@@ -22,12 +22,19 @@ function workspaceCalendarSettingsSave(): string {
         if (!is_string($url)) throw new RuntimeException('Adresse iCal invalide.');
         $url = trim($url);
         if ($url !== '') communityCalendarValidateUrl($url);
+        $clear = ($_POST['calendar_ical_clear'] ?? '') === '1';
+        // Un formulaire vide ne prouve pas qu’une adresse a été configurée.
+        if (!$clear && $url === '' && $old['ical_url'] === '') throw new RuntimeException('Aucune adresse iCal enregistrée : renseigner l’adresse secrète avant d’enregistrer.');
         $saved = $old;
-        $saved['ical_url'] = !empty($_POST['calendar_ical_clear']) ? '' : ($url === '' ? $old['ical_url'] : $url);
+        $saved['ical_url'] = $clear ? '' : ($url === '' ? $old['ical_url'] : $url);
         $saved['revision'] = bin2hex(random_bytes(16));
         $settings['workspace_calendar'] = $saved;
         MusicbandWrite('home_settings', $settings);
-        return 'Adresse iCal enregistrée. Aucun appel Google effectué.';
+        // Relire le stockage partagé avec la page Agenda, sans afficher ni journaliser le secret.
+        $persisted = workspaceCalendarSettings();
+        if ($persisted['revision'] !== $saved['revision'] || $persisted['ical_url'] !== $saved['ical_url']) throw new RuntimeException('Enregistrement Agenda non confirmé : recharger Configuration avant de réessayer.');
+        if ($clear) return 'Agenda déconnecté. Aucun appel Google effectué.';
+        return ($url === '' ? 'Adresse iCal existante conservée.' : 'Adresse iCal enregistrée et relue.') . ' L’accès Google n’a pas été testé : ouvrir Agenda pour consulter les événements.';
     }
     $id=$_POST['calendar_id']??null;
     if(!is_string($id)||trim($id)===''||strlen($id)>1024||preg_match('/[\x00-\x20\x7f]/',$id))throw new RuntimeException('Identifiant du calendrier invalide.');

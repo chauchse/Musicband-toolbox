@@ -17,6 +17,7 @@ function communityCalendarValidateUrl(string $url): void {
 
 function communityCalendarSettingsForm(string $hidden, array $settings): string {
     return '<section><h3>Agenda Google · lecture seule</h3><p>Dans Google Agenda sur ordinateur : Paramètres → votre agenda → Intégrer l’agenda → Adresse secrète au format iCal. Compatible avec un compte Google personnel, sans Google Cloud ni connexion Google sur ce site.</p>'
+        . '<p role="status">'.($settings['ical_url'] !== '' ? 'État enregistré : adresse iCal configurée. Son accès sera vérifié à l’ouverture de l’Agenda.' : 'État enregistré : aucun agenda configuré.').'</p>'
         . '<form method="post">'.$hidden.'<input type="hidden" name="action" value="workspace_calendar_settings"><input type="hidden" name="calendar_revision" value="'.MusicbandEscape($settings['revision']).'">'
         . '<label>Adresse secrète iCal<input type="password" name="calendar_ical_url" maxlength="2048" autocomplete="new-password" placeholder="'.($settings['ical_url'] !== '' ? 'Adresse configurée — laisser vide pour conserver' : 'https://calendar.google.com/calendar/ical/…/basic.ics').'"></label>'
         . '<label><input type="checkbox" name="calendar_ical_clear" value="1"> Déconnecter cet agenda</label><p>Cette adresse donne accès aux événements : ne la partagez pas. Les utilisateurs autorisés à consulter l’Agenda verront ses événements. Préférez un agenda dédié au groupe. En cas de fuite, réinitialisez l’adresse dans Google Agenda.</p><button>Enregistrer l’agenda</button></form>'

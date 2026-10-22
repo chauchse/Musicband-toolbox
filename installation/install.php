@@ -173,7 +173,7 @@ if ($redirectError) {
 }
 ?><!doctype html>
 <!-- Assistant indépendant de auth.php : aucun compte applicatif n'existe avant finalisation. -->
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Installer MusicBand Toolbox</title><link rel="stylesheet" href="css/auth.css?v=2026.10.22.22-community"><link rel="stylesheet" href="css/common.css?v=2026.10.22.22-community"></head><body class="community-install">
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Installer MusicBand Toolbox</title><link rel="stylesheet" href="css/auth.css?v=2026.10.22.23-community"><link rel="stylesheet" href="css/common.css?v=2026.10.22.23-community"></head><body class="community-install">
 <header class="installation-header"><div><p class="installation-brand">MusicBand Toolbox</p><h1>Installation</h1></div></header><main>
 <?php if ($message !== ''): ?><section id="installation-message" class="installation-notice<?= $failed ? ' installation-notice-error' : '' ?>" role="<?= $failed ? 'alert' : 'status' ?>" tabindex="-1"><h2><?= $failed ? 'Installation interrompue' : 'Résultat' ?></h2><p><?= communityEscape($message) ?></p><?php if ($failed): ?><p>Aucune réussite n’est confirmée. Les mots de passe doivent être saisis à nouveau pour reprendre.</p><?php endif; ?></section><?php endif; ?>
 <?php if ($finished): ?><p><a href="login.php">Connexion</a></p>
@@ -188,4 +188,4 @@ if ($redirectError) {
 <button class="installation-check" name="action" value="check" formnovalidate>Vérifier la connexion uniquement</button>
 <fieldset><legend>Application et administrateur</legend><label>Nom de l’application <input name="app_name" value="MusicBand Toolbox" maxlength="100"></label><label>URL publique HTTPS, avec barre finale <input type="url" name="base_url" placeholder="https://exemple.org/toolbox/"></label><label>Identifiant administrateur <input name="login" maxlength="80" autocomplete="username"></label><label>E-mail <input type="email" name="email" maxlength="254"></label><label>Mot de passe, de 12 à 72 octets <input type="password" name="password" autocomplete="new-password"></label><label>Confirmation <input type="password" name="confirmation" autocomplete="new-password"></label></fieldset>
 <button name="action" value="install">Installer ou reprendre</button></form>
-<?php endif; ?></main><footer class="installation-footer"><p>Version installateur : 2026.10.22.22-community</p></footer></body></html>
+<?php endif; ?></main><footer class="installation-footer"><p>Version installateur : 2026.10.22.23-community</p></footer></body></html>

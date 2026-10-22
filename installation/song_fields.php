@@ -16,7 +16,8 @@ function songFieldsReady(): bool {
     return $ready;
 }
 function songFieldLabels(): array {
-    $basic=['title','artist','duration_seconds','tempo','guitar','musical_key','energy','p5','seb_comments'];$out=[];
+    // Le schéma Community conserve ce booléen dans data_json, sans colonne SQL dédiée.
+    $basic=['title','artist','duration_seconds','tempo','guitar','musical_key','energy','p5','seb_comments','next_rehearsal_work'];$out=[];
     foreach(songFieldSpecs() as $key=>$spec)if(songFieldsReady()||in_array($key,$basic,true))$out[$key]=$spec['label'];
     return $out;
 }

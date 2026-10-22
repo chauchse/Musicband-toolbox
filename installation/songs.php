@@ -257,7 +257,7 @@ try{
     }else{
         $allColumns=fieldLayoutOrder('songs','list',fieldVisibilityRegistry($db,'songs'));
         $allColumns=array_filter($allColumns,fn($key)=>fieldVisibilityVisible('songs',$key),ARRAY_FILTER_USE_KEY);
-        $selectedColumns=$_GET['columns']??(isset($_GET['columns_set'])?[]:['title','artist','duration_seconds','tempo','guitar','musical_key','concert_ready']);
+        $selectedColumns=$_GET['columns']??(isset($_GET['columns_set'])?[]:['title','artist','duration_seconds','tempo','guitar','musical_key','concert_ready','next_rehearsal_work']);
         if(!is_array($selectedColumns)||count($selectedColumns)>500||array_filter($selectedColumns,fn($v)=>!is_string($v)))throw new RuntimeException('Choix des colonnes invalide.');
         $selectedColumns=array_values(array_intersect(array_keys($allColumns),$selectedColumns));
         if(!in_array('title',$selectedColumns,true))$selectedColumns[]='title';

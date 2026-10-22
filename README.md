@@ -2,17 +2,23 @@
 
 Paquet installable sur un hébergement PHP/MySQL pour gérer les morceaux, setlists, contacts, concerts, tâches et notifications d’un groupe.
 
-Ce dépôt contient la distribution **2026.10.22.22-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. Le ZIP est une copie de la distribution préparée, sans changement du code applicatif.
+Ce dépôt contient la distribution **2026.10.22.23-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .23 corrige la disponibilité du champ « À travailler pour la prochaine répète » sur le schéma Community simplifié. Le ZIP .22 reste disponible pour retour arrière.
 
 ## Télécharger
 
-Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.22.zip`](package/musicband-toolbox-community-2026.10.22.22.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
+Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.23.zip`](package/musicband-toolbox-community-2026.10.22.23.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
 
 ## Version décompressée
 
 Le dossier [`installation/`](installation/) contient les fichiers exacts du ZIP, dont le code PHP/HTML/JavaScript distribué, les styles, dépendances et règles `.htaccess`. Il permet de consulter le code ou de transférer directement les fichiers sans extraire le paquet. Il ne contient pas les sources ni outils de préparation locaux.
 
 Pour installer depuis cette version, cloner ou télécharger le dépôt, puis transférer **le contenu de `installation/`**, fichiers cachés compris, dans le dossier web choisi. Ne pas transférer le dossier `.git`, `package/` ni le README racine. Suivre ensuite le même parcours `install.php` ou Upgrade ci-dessous. Les fichiers sont copiés sans modification du code ; ils restent soumis à la même validation manuelle que le ZIP.
+
+## Champ Morceau à travailler — version 2026.10.22.23-community
+
+Le champ existant « À travailler pour la prochaine répète » (`next_rehearsal_work`) est désormais proposé dans les fiches, formulaires, filtres et choix de colonnes du catalogue sur le schéma Community simplifié. Il apparaît dans la liste par défaut, sans modifier un choix explicite de colonnes ni réactiver un champ masqué. Les valeurs Oui, Non et Non renseigné restent stockées dans le document JSON SQL existant ; aucune nouvelle colonne, migration ou réinitialisation.
+
+Pour mettre à jour, sauvegarder les fichiers publics puis transférer le paquet complet .23, sans réinstaller ni lancer de migration. **Non exécuté — validation à réaliser par l’utilisateur** : avec le schéma Community simplifié et le schéma étendu, vérifier affichage, création et modification avec Oui/Non/Non renseigné, rechargement de la fiche, colonnes et filtres, édition groupée et droits lecture/édition. Sur un ancien morceau, vérifier qu’une saisie Oui/Non/Non renseigné prévaut sur la cellule source conservée et reste enregistrée après rechargement. Vérifier qu’un champ masqué et un choix explicite de colonnes restent respectés, que les anciennes valeurs et les autres champs sont conservés. Une valeur perdue, une modification refusée ou un accès en écriture sans droit constitue un échec. Aucun test, build, serveur ou déploiement exécuté ; archive recomposée à partir des fichiers distribués, sans exécution PHP/JS. Retour arrière : restaurer les fichiers publics .22, en conservant base, données et configuration privées ; la valeur enregistrée reste conservée mais le champ peut redevenir masqué.
 
 ## Prérequis
 
@@ -53,7 +59,7 @@ Les migrations de base sont une opération séparée : les migrations 2 et 3 ret
 
 Le paquet inclut catalogue, composition manuelle de setlists, variantes, exports Tempo/SACEM/Excel/impression, contacts, concerts, tâches, agenda iCal, comptes, rôles et notifications. Sound/XR18, authentification Google, publication WordPress, modules financiers et imports externes sont retirés ou désactivés dans Community. La génération automatique de setlists n’est pas portée dans cette distribution PHP.
 
-La validation exhaustive de la PWA et d’une installation neuve sur chaque hébergement reste à effectuer. La distribution locale `.22` et le ZIP concordent avec leur manifeste lors de l’inspection statique. Aucun test fonctionnel, build, déploiement ou envoi n’a été effectué pour cette publication GitHub.
+La validation exhaustive de la PWA et d’une installation neuve sur chaque hébergement reste à effectuer. La version `.23` reprend les fichiers distribués `.22` avec le correctif Morceaux ; aucune reconstruction applicative ni migration exécutée. Aucun test fonctionnel, build, déploiement ou envoi n’a été effectué pour cette publication GitHub.
 
 **Non exécuté — validation à réaliser par l’utilisateur** : sur une instance HTTPS isolée et sauvegardée, vérifier installation/reprise et verrouillage, connexion, conservation des données, catalogue/setlists/exports, droits, enregistrement du service worker dans le bon périmètre, activation d’un appareil, notification de test volontaire et compte rendu CRON. Vérifier les invitations uniquement avec des destinataires autorisés. Arrêter en cas d’erreur PHP/JavaScript, accès non autorisé, secret exposé, envoi inattendu ou donnée perdue.
 

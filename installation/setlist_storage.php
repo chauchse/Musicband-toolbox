@@ -221,6 +221,8 @@ function setlistSongSave(): int {
     foreach($source as $name=>$old){if(songSourceField($name)!==null)continue;$key=fieldVisibilitySourceKey('songs',$name);if(!fieldVisibilityVisible('songs',$key))continue;$value=$_POST[$key]??null;if(!is_string($value)||strlen($value)>6000||!preg_match('//u',$value)||str_contains($value,"\0"))throw new RuntimeException('Cellule importée invalide.');$source[$name]=$value;}
     // Compatibilité avant migration : les anciens champs Prêt/Ordre/À travailler vivaient en JSON.
     if(!songFieldsReady())foreach(['ready'=>'concert_ready','order'=>'catalogue_order','next_rehearsal_work'=>'next_rehearsal_work'] as $target=>$sql){
+        // Une saisie normalisée prévaut sur l’ancienne cellule source, qui reste conservée.
+        if(array_key_exists($sql,businessConfig('songs')['fields']))continue;
         $index=$song['_column_indexes'][$target]??null;if($index===null)continue;
         $name='Colonne '.($index+1).' · '.($song['_headers'][$index]??'Sans titre');
         $postKey=fieldVisibilitySourceKey('songs',$name);

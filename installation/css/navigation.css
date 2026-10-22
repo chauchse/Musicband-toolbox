@@ -1,0 +1,285 @@
+/* Musicband CSS: web/css/navigation.css — menu partagé produit par navigation.py.
+   Complète common.css, y compris son positionnement mobile ; sans logique métier. */
+.Musicband-menu {
+  position:relative;
+  flex:none;
+  margin-left:auto;
+  color:var(--appearance-neutral-text, #f5f5f5);
+  font:calc(14px * var(--appearance-scale, 1)) system-ui;
+  z-index:10
+}
+.Musicband-menu>summary {
+  list-style:none;
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  min-height:44px;
+  padding:0!important;
+  cursor:pointer;
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:12px;
+  background:var(--appearance-neutral-card, #1c1c1c)
+}
+.Musicband-menu>summary::-webkit-details-marker {
+  display:none
+}
+.Musicband-menu>summary svg {
+  display:block;
+  width:22px;
+  height:22px
+}
+.Musicband-menu[open]>summary {
+  border-color:var(--appearance-neutral-text, #aaa);
+  background:var(--appearance-neutral-elevated, #292929)
+}
+.Musicband-menu .Musicband-links {
+  position:absolute;
+  right:0;
+  top:52px;
+  width:min(260px,calc(100vw - 32px));
+  display:grid;
+  gap:4px;
+  padding:8px;
+  background:var(--appearance-neutral-card, #1c1c1c);
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:14px;
+  box-shadow:0 16px 40px #0008
+}
+.Musicband-menu:not([open]) .Musicband-links {
+  display:none
+}
+.Musicband-menu .Musicband-version {
+  display:block;
+  padding:10px 14px;
+  border-top:1px solid var(--appearance-neutral-border, #555);
+  color:var(--appearance-neutral-text, #bbb);
+  font-size:calc(12px * var(--appearance-scale, 1));
+  overflow-wrap:anywhere
+}
+.Musicband-menu a {
+  color:var(--appearance-neutral-text, #f5f5f5);
+  text-decoration:none;
+  padding:13px 14px;
+  min-height:44px;
+  border-radius:8px
+}
+.Musicband-menu a:hover {
+  background:var(--appearance-neutral-elevated, #303030)
+}
+.Musicband-menu a[aria-current] {
+  background:var(--appearance-neutral-elevated, #292929);
+  box-shadow:inset 2px 0 #b52e38;
+  font-weight:700
+}
+.Musicband-menu a:focus-visible,.Musicband-menu>summary:focus-visible {
+  outline:2px solid var(--appearance-accent, #ed737b);
+  outline-offset:3px
+}
+.Musicband-home-logo {
+  display:inline-flex;
+  align-items:center;
+  flex:none;
+  min-height:44px
+}
+.Musicband-home-logo:focus-visible {
+  outline:2px solid var(--appearance-accent, #ed737b);
+  outline-offset:3px;
+  border-radius:6px
+}
+.Musicband-header {
+  display:flex!important;
+  align-items:center!important;
+  flex-direction:row!important;
+  gap:12px;
+  flex-wrap:wrap
+}
+.Musicband-header>.Musicband-menu {
+  order:2
+}
+/* Navigation contextuelle entre fiches détaillées (< et >) */
+.Musicband-header>.Musicband-detail-nav {
+  order:2;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  flex:none
+}
+.Musicband-detail-nav[hidden] {
+  display:none!important
+}
+.Musicband-detail-nav-btn {
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  min-height:44px;
+  min-width:44px;
+  box-sizing:border-box;
+  padding:0!important;
+  color:var(--appearance-neutral-text, #f5f5f5);
+  background:var(--appearance-neutral-card, #1c1c1c);
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:12px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background-color .15s,border-color .15s,opacity .15s
+}
+.Musicband-detail-nav-btn:hover:not(.is-disabled):not([aria-disabled="true"]) {
+  background:var(--appearance-neutral-elevated, #292929);
+  border-color:var(--appearance-neutral-text, #aaa);
+  color:var(--appearance-neutral-text, #fff)
+}
+.Musicband-detail-nav-btn:focus-visible {
+  outline:2px solid var(--appearance-accent, #ed737b);
+  outline-offset:3px
+}
+.Musicband-detail-nav-btn svg {
+  display:block;
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+.Musicband-detail-nav-btn.is-disabled,
+.Musicband-detail-nav-btn[aria-disabled="true"] {
+  opacity:.28;
+  border-color:var(--appearance-neutral-line, #3a3a3a);
+  color:var(--appearance-neutral-border, #666);
+  cursor:not-allowed;
+  pointer-events:none
+}
+.Musicband-header>.toolbar {
+  order:3;
+  width:100%;
+  justify-content:flex-start
+}
+.Musicband-header>.brand,
+.Musicband-header>h1 {
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+.Musicband-header>h1 {
+  flex:1 1 auto;
+  margin:0;
+  font-size:clamp(calc(16px * var(--appearance-scale, 1)),2.2vw,calc(22px * var(--appearance-scale, 1)));
+  line-height:1.25
+}
+/* Chargée après common.css : conserver ici les bornes du menu mobile. */
+@media screen and (max-width:600px),screen and (max-height:500px) and (pointer:coarse) {
+  .Musicband-page-header {
+    margin-top:calc(-1 * max(8px,env(safe-area-inset-top)))!important;
+    margin-left:calc(-1 * max(8px,env(safe-area-inset-left)))!important;
+    margin-right:calc(-1 * max(8px,env(safe-area-inset-right)))!important;
+    padding-left:max(8px,env(safe-area-inset-left))!important;
+    padding-top:max(6px,env(safe-area-inset-top))!important;
+    padding-bottom:6px!important;
+    padding-right:116px!important;
+    min-height:54px;
+    margin-bottom:10px
+  }
+  .Musicband-header>h1 {
+    font-size:clamp(calc(15px * var(--appearance-scale, 1)),4vw,calc(18px * var(--appearance-scale, 1)))!important
+  }
+  .Musicband-menu .Musicband-links {
+    position:fixed;
+    left:max(8px,env(safe-area-inset-left));
+    right:max(8px,env(safe-area-inset-right));
+    top:max(62px,env(safe-area-inset-top));
+    width:auto;
+    min-width:0;
+    box-sizing:border-box;
+    max-height:calc(100dvh - max(62px,env(safe-area-inset-top)) - max(16px,env(safe-area-inset-bottom)));
+    padding:6px
+  }
+  .Musicband-menu a {
+    min-width:0;
+    padding:9px 12px;
+    overflow-wrap:anywhere
+  }
+  .Musicband-menu a>span {
+    min-width:0
+  }
+  .Musicband-detail-nav {
+    display:none!important
+  }
+}
+@media print {
+  .Musicband-page-header {
+    position:static!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    border:none!important;
+    box-shadow:none!important
+  }
+  .Musicband-menu {
+    display:none!important
+  }
+}
+/* Commandes permanentes compactes et en-tête flottant lors du défilement */
+@media screen {
+  .Musicband-page-header {
+    position:sticky;
+    top:0;
+    z-index:90;
+    margin-top:calc(-1 * clamp(8px,1.2vw,20px));
+    margin-left:calc(-1 * clamp(8px,1.2vw,20px));
+    margin-right:calc(-1 * clamp(8px,1.2vw,20px));
+    padding-left:clamp(8px,1.2vw,20px);
+    padding-top:max(8px,env(safe-area-inset-top));
+    padding-bottom:8px;
+    padding-right:128px!important;
+    background:var(--Musicband-surface,#191919);
+    border-bottom:1px solid var(--Musicband-line,#383838);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    box-shadow:0 2px 8px rgba(0,0,0,.35);
+    margin-bottom:14px;
+    box-sizing:border-box;
+    min-height:64px
+  }
+  .Musicband-header {padding-right:128px!important;min-height:64px;box-sizing:border-box}
+  .Musicband-header>.Musicband-menu {
+    position:fixed!important;top:max(10px,env(safe-area-inset-top));
+    right:max(12px,env(safe-area-inset-right));left:auto;margin:0!important;z-index:100
+  }
+  .Musicband-header>.Musicband-help-menu {
+    position:fixed;top:max(10px,env(safe-area-inset-top));
+    right:max(64px,calc(env(safe-area-inset-right) + 52px));margin:0;z-index:99
+  }
+  .Musicband-header>.Musicband-detail-nav {
+    position:fixed;top:max(10px,env(safe-area-inset-top));
+    right:max(116px,calc(env(safe-area-inset-right) + 104px));margin:0;z-index:99
+  }
+  .Musicband-page-header.has-detail-nav,
+  .Musicband-page-header:has(.Musicband-detail-nav:not([hidden])),
+  .Musicband-header.has-detail-nav,
+  .Musicband-header:has(.Musicband-detail-nav:not([hidden])) {
+    padding-right:max(216px,calc(env(safe-area-inset-right) + 204px))!important
+  }
+  .Musicband-help-menu>summary {display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0!important;box-sizing:border-box;font-size:calc(20px * var(--appearance-scale, 1));font-weight:700}
+  .Musicband-header .Musicband-menu .Musicband-links {
+    position:fixed;top:max(62px,calc(env(safe-area-inset-top) + 54px));
+    right:max(12px,env(safe-area-inset-right));left:auto;
+    width:min(300px,calc(100vw - 24px));max-height:calc(100dvh - 80px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box
+  }
+  .Musicband-help-panel {position:fixed;top:max(62px,calc(env(safe-area-inset-top) + 54px));right:max(12px,env(safe-area-inset-right));max-height:calc(100dvh - 90px - env(safe-area-inset-top) - env(safe-area-inset-bottom));box-sizing:border-box}
+}
+.Musicband-scroll-top {
+  position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));
+  z-index:90;display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:10px!important;margin:0!important;
+  border:1px solid var(--appearance-neutral-muted, #888);border-radius:50%;background:var(--appearance-neutral-text, #fff);color:var(--appearance-neutral-card, #222);box-shadow:0 2px 8px #0003;
+  cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;box-sizing:border-box
+}
+.Musicband-scroll-top[hidden] {display:none!important}
+.Musicband-scroll-top.is-left {right:auto;left:max(16px,env(safe-area-inset-left))}
+.Musicband-scroll-top svg {width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.Musicband-scroll-top:focus-visible {outline:2px solid #b52e38;outline-offset:3px}
+@media print {.Musicband-scroll-top,.Musicband-help-menu,.Musicband-detail-nav {display:none!important}}

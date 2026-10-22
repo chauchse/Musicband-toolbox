@@ -1,0 +1,1 @@
+Voir LIRE-MOI.md dans l’archive. HTTPS et PHP 8.2+ requis. PWA initialisée automatiquement sur installation neuve ; action PWA distincte dans Upgrade pour un site existant.

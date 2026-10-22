@@ -1,0 +1,822 @@
+<!doctype html>
+<!-- Gabarit source du lecteur Setlist, préparé par web/site.py ou web/publish.py.
+Les publications et variantes passent par les routes PHP authentifiées ; l’édition reste locale jusqu’à l’enregistrement.
+Le navigateur explique les contraintes ; le serveur les contrôle de nouveau avant persistance.
+Exports proposés : Tempo, SACEM, Excel et impression ; aucun export Seb. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Musicband — Setlist Studio</title>
+<link rel="stylesheet" href="../css/setlist.css">
+<link rel="icon" href="../pwa_icon.php?size=192"></head>
+<body>
+<!-- Musicband SETLIST STUDIO: owned publication -->
+<div class="shell">
+<header class="Musicband-header"><div class="brand"><a class="Musicband-home-logo" href="../index.php" aria-label="Retour à l’accueil"><img class="Musicband-logo" src="Musicband_LOGO_URI" alt="Musicband"></a><span class="brand-base">SETLIST STUDIO</span><span id="brand-separator" class="brand-separator" hidden aria-hidden="true">·</span><span id="brand-title" class="brand-title" hidden></span></div><link rel="stylesheet" href="../css/common.css?v=2026.10.22.22-community"><link rel="stylesheet" href="../css/navigation.css?v=2026.10.22.22-community"><details class="Musicband-menu"><summary aria-label="Ouvrir ou fermer le menu général"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="Musicband-links" aria-label="Menu général Musicband"><a href="../" data-Musicband-module="home"> <span class="Musicband-icon" data-Musicband-icon="home"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 10 12 3l9 7v11h-6v-7H9v7H3Z"/></svg></span><span>Musicband Toolbox</span><span class="Musicband-beta" data-Musicband-beta="home" hidden></span></a><a href="../setlist/" aria-current="page" data-Musicband-module="setlist"> <span class="Musicband-icon" data-Musicband-icon="setlist"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18V5l12-2v13M9 8l12-2M9 18a3 3 0 1 1-3-3h3m12 1a3 3 0 1 1-3-3h3"/></svg></span><span>Setlist</span><span class="Musicband-beta" data-Musicband-beta="setlist" hidden></span></a><a href="../songs.php" data-Musicband-module="songs"> <span class="Musicband-icon" data-Musicband-icon="songs"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18V5l12-2v13M9 8l12-2M9 18a3 3 0 1 1-3-3h3m12 1a3 3 0 1 1-3-3h3"/></svg></span><span>Morceaux</span><span class="Musicband-beta" data-Musicband-beta="songs" hidden></span></a><a href="../contacts.php" data-Musicband-module="contacts"> <span class="Musicband-icon" data-Musicband-icon="contacts"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3h16v18H4ZM2 7h4m-4 5h4m-4 5h4m4-10a2 2 0 1 0 4 0 2 2 0 0 0-4 0m-1 10v-2a3 3 0 0 1 6 0v2"/></svg></span><span>Contacts</span><span class="Musicband-beta" data-Musicband-beta="contacts" hidden></span></a><a href="../concerts.php" data-Musicband-module="concerts"> <span class="Musicband-icon" data-Musicband-icon="concerts"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v16H4Zm3-3v6m10-6v6M4 10h16m-12 4h2m4 0h2m-8 4h2"/></svg></span><span>Concerts</span><span class="Musicband-beta" data-Musicband-beta="concerts" hidden></span></a><a href="../calendar.php" data-Musicband-module="agenda"> <span class="Musicband-icon" data-Musicband-icon="agenda"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v16H4Zm3-3v6m10-6v6M4 10h16m-12 4h2m4 0h2m-8 4h2"/></svg></span><span>Agenda</span><span class="Musicband-beta" data-Musicband-beta="agenda" hidden></span></a><a href="../tasks.php" data-Musicband-module="tasks"> <span class="Musicband-icon" data-Musicband-icon="tasks"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span>Gestion des tâches</span><span class="Musicband-beta" data-Musicband-beta="tasks" hidden></span></a><a href="../admin.php" data-Musicband-admin="1" data-Musicband-module="admin"> <span class="Musicband-icon" data-Musicband-icon="admin"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-6 0v6"/></svg></span><span>Configuration</span><span class="Musicband-beta" data-Musicband-beta="admin" hidden></span></a><a href="../audit.php" data-Musicband-admin="1" data-Musicband-module="audit"> <span class="Musicband-icon" data-Musicband-icon="audit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5Zm9 0v6h5M8 13h8m-8 4h8"/></svg></span><span>Audit trail</span><span class="Musicband-beta" data-Musicband-beta="audit" hidden></span></a><a href="../ideas.php" data-Musicband-module="ideas"> <span class="Musicband-icon" data-Musicband-icon="ideas"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 3 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z"/></svg></span><span>Boîte à idées</span><span class="Musicband-beta" data-Musicband-beta="ideas" hidden></span></a><a href="../activate.php?change=1" data-Musicband-module="password"> <span class="Musicband-icon" data-Musicband-icon="password"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-6 0v6"/></svg></span><span>Préférences</span><span class="Musicband-beta" data-Musicband-beta="password" hidden></span></a><a href="../logout.php" data-Musicband-module="logout"> <span class="Musicband-icon" data-Musicband-icon="logout"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3H4v18h5m5-14 5 5-5 5m-5-5h14"/></svg></span><span>Déconnexion</span><span class="Musicband-beta" data-Musicband-beta="logout" hidden></span></a><span class="Musicband-version">Version web 2026.10.22.22-community</span></nav></details><details class="Musicband-help-menu"><summary aria-label="Aide" title="Aide">?</summary>
+<div class="Musicband-help-panel" role="region" aria-label="Aide des modules Musicband">
+<h2>Utiliser Musicband Toolbox</h2>
+<p>Choisissez une rubrique. En haut de chaque page, Instructions rappelle les premières étapes.</p>
+<details><summary>Contacts</summary>
+<p>Retrouvez les personnes et les lieux dans votre carnet. Tapez un nom ou un lieu dans Rechercher : la liste se met à jour toute seule.</p>
+<p>Cliquez sur un nom pour ouvrir sa fiche. Colonnes affichées permet de choisir les informations visibles dans le tableau.</p>
+<p>Si les boutons sont disponibles, utilisez Nouveau contact pour ajouter une personne ou Modifier pour corriger sa fiche. Cliquez sur Enregistrer pour garder les changements, ou Annuler pour revenir sans les garder.</p>
+</details>
+<details><summary>Concerts</summary>
+<p>Les concerts à venir et les concerts passés sont présentés dans deux tableaux. Ceux qui n’ont pas de date connue restent dans Dates à préciser.</p>
+<p>Tapez dans Rechercher pour retrouver un concert. Cliquez sur son nom pour lire les détails. Colonnes affichées permet de choisir les informations du tableau.</p>
+<p>Pour créer ou modifier un concert, utilisez les boutons proposés. Renseignez le nom, la date, le lieu et les informations utiles. Choisissez le contact lié au concert, ou Nouveau client pour en ajouter un sur place. Cliquez sur Enregistrer pour garder la fiche.</p>
+<p>Dans la fiche du concert, choisissez une setlist dans la liste puis cliquez sur Associer la setlist au concert. Dissocier retire le lien sans supprimer la setlist. Une setlist liée ne peut pas être supprimée ; pour la réutiliser ailleurs, faites-en une copie sans concert associé.</p>
+</details>
+<details><summary>Devis / Factures</summary>
+<p>Choisissez Devis ou Facture, puis le client et le concert. Si le client n’existe pas encore, utilisez Nouveau client sans quitter la page.</p>
+<p>Le nom et l’adresse viennent de la fiche du client. La date de prestation, la durée, le montant et le mode de règlement viennent du concert. Pour corriger ces informations, modifiez la fiche concernée puis enregistrez à nouveau le document.</p>
+<p>Au premier enregistrement, un numéro est donné automatiquement, par exemple Devis 2026-01 ou Facture 2026-01. Chaque type a sa propre suite de numéros pour l’année en cours. Le numéro reste le même lors des modifications.</p>
+<p>Le document commence en Préparation. Vérifiez les informations, puis utilisez Valider. Si une correction est nécessaire, remettez-le en Préparation. La création du PDF et l’envoi au client ne sont pas encore disponibles.</p>
+</details>
+<details><summary>Setlist · les morceaux du concert</summary>
+<p>Choisissez une setlist, puis une variante : c’est une autre version de la même liste. Vérifiez l’ordre des morceaux et la durée totale.</p>
+<p>Activez le mode édition pour changer la liste. Déplacez les morceaux avec la poignée ou les flèches ↑ et ↓. Les boutons → Rappel et → Set déplacent un morceau entre la partie principale et le rappel.</p>
+<p>Afficher les morceaux non sélectionnés ouvre la réserve. Le bouton + ajoute un morceau ; le bouton − le retire et le remet dans la réserve, y compris s’il était dans le rappel. Certains morceaux restent groupés ou à une place imposée.</p>
+<p>Enregistrer crée une nouvelle version avec la date et votre nom. Les versions précédentes restent disponibles. Rétablir la variante annule les changements non enregistrés. Enregistrez avant de changer de liste ou de quitter la page.</p>
+<p>Pour emporter la liste, choisissez Export Tempo, Export SACEM, Export Excel ou Imprimer. L’export SACEM contient le lieu du concert, les titres et les artistes, sans séparer le rappel. Il n’est pas envoyé à la SACEM. Les exports reprennent la liste affichée, même si vos derniers changements ne sont pas encore enregistrés.</p>
+<p>Sur iPhone, utilisez les options de partage du navigateur pour garder le fichier dans Fichiers.</p>
+</details>
+<details><summary>Sound · XR18 · les réglages du son</summary>
+<p>Ouvrez un fichier de scène .scn ou une scène déjà conservée. Une scène contient les réglages de la console. Sur iPhone, si le fichier est grisé, faites-en une copie et changez la fin de son nom en .txt.</p>
+<p>Choisissez la piste et lancez l’analyse sans IA pour lire ses réglages. Choisissez ensuite l’instrument, décrivez le problème entendu et cliquez sur Construire les essais sans IA.</p>
+<p>Essayez les réglages proposés sur la console, un changement à la fois, puis écoutez le résultat. La page ne change pas les réglages de la console à votre place.</p>
+<p>Avec Noter le résultat après écoute, indiquez si le son est amélioré, inchangé ou dégradé, puis enregistrez votre retour.</p>
+<p>Le menu Actions permet d’ouvrir le rapport PDF. Les autres exports permettent de garder les réglages et les conseils dans un fichier. Sur iPhone, utilisez Partager pour l’enregistrer dans Fichiers.</p>
+<p>Gardez vos fichiers d’origine : seules les trois scènes les plus récentes sont conservées sur le site. Enregistrez les rapports utiles avant de quitter la page.</p>
+</details>
+<details><summary>Se déplacer et se connecter</summary>
+<p>Le menu général permet de revenir à l’accueil, de changer de module ou de se déconnecter. Si votre connexion a expiré, reconnectez-vous. Pensez à enregistrer vos changements avant de quitter une page.</p>
+</details>
+<p>Cliquez de nouveau sur ? pour fermer ce guide. Chaque rubrique peut aussi être repliée.</p>
+</div></details><div class="toolbar"><div class="tools"><select id="published" aria-label="Setlists publiées" hidden><option value="">Choisir une setlist publiée</option></select><select id="variant" aria-label="Variante" hidden></select></div></div></header><details class="Musicband-instructions"><summary>Instructions</summary><ol><li>Choisir une setlist et une version, puis vérifier les morceaux et les durées.</li><li>Activer le mode édition pour déplacer, ajouter ou retirer des morceaux.</li><li>Cliquer sur Enregistrer pour garder une nouvelle version datée à votre nom.</li><li>Exporter la liste courante avec Tempo, SACEM, Excel ou Imprimer.</li></ol><p>Le menu Aide explique chaque étape en détail.</p></details>
+<p id="error" class="error" role="alert" hidden></p>
+<div id="sql-relations" hidden aria-live="polite"></div>
+<main>
+<!-- Contrôles regroupés uniquement : identifiants et événements métier conservés. -->
+<details id="setlist-actions" class="setlist-actions">
+  <summary>Actions de la setlist <span id="actions-state" class="setlist-action-state">Consultation</span></summary>
+  <div class="edit-toolbar setlist-action-groups">
+    <section class="setlist-action-group setlist-management" aria-labelledby="setlist-management-title">
+      <h2 id="setlist-management-title">Gestion</h2>
+      <div class="setlist-action-controls">
+        <a class="setlist-action-link" href="../setlists.php#create-setlist">Nouvelle setlist</a>
+        <a class="setlist-action-link" href="../setlists.php">Gérer les publications</a>
+      </div>
+    </section>
+    <section class="setlist-action-group setlist-editing" aria-labelledby="setlist-editing-title">
+      <h2 id="setlist-editing-title">Édition et validation</h2>
+      <div class="setlist-action-controls">
+        <div class="setlist-mode-controls" role="group" aria-label="Modes d’affichage">
+          <button id="edit-mode" type="button" aria-pressed="false" disabled>Édition</button>
+          <button id="show-available" type="button" aria-pressed="false" aria-controls="available">Tous morceaux</button>
+        </div>
+        <button id="save" class="setlist-save" type="button" disabled>Enregistrer</button>
+        <button id="restore" class="setlist-restore" type="button" disabled>Rétablir la variante</button>
+        <button id="validate-setlist" type="button" disabled>Setliste validée</button>
+      </div>
+    </section>
+    <section class="setlist-action-group setlist-transfer" aria-labelledby="setlist-export-title">
+      <h2 id="setlist-export-title">Export</h2>
+      <div class="setlist-action-controls setlist-export-options" role="group" aria-label="Formats d’export et impression">
+        <button id="tempo" type="button" disabled>Tempo</button>
+        <button id="sacem" type="button" disabled>SACEM</button>
+        <button id="excel" type="button" disabled>Excel</button>
+        <button id="print" type="button" disabled>Imprimer</button>
+      </div>
+    </section>
+  </div>
+</details><p id="edit-status" role="status" aria-live="polite"></p><p id="validation-status" role="status" aria-live="polite"></p><div id="available" hidden></div><section class="sheet"><div id="empty" class="empty"><h3>Aucune setlist affichée</h3><p>La dernière setlist publiée s’affiche automatiquement. Les autres sont disponibles dans le sélecteur.</p></div><div id="rows" hidden></div></section>
+<section class="stats" aria-label="Repères du concert"><div class="stat"><small>Durée scénique</small><strong id="total">—</strong><span>Musique, transitions et pauses</span></div><div class="stat"><small>Morceaux</small><strong id="count">—</strong><span id="encore">Set principal & rappel</span></div><div class="stat"><small>Changements de guitare</small><strong id="changes">—</strong><span>Entre les morceaux</span></div><div class="stat"><small>Marge disponible</small><strong id="margin">—</strong><span id="target">Selon la durée cible</span></div><div class="stat detail"><small>Musique</small><strong id="music">—</strong></div><div class="stat detail"><small>Transitions</small><strong id="transitions">—</strong></div><div class="stat detail"><small>Pauses & présentation</small><strong id="pauses">—</strong></div></section></main>
+</div>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+// Seul le conteneur Actions reste repliable ; Échap restitue le focus à son titre.
+$('setlist-actions').addEventListener('keydown',event=>{
+  if(event.key!=='Escape')return;
+  const menu=event.target.closest('details[open]');
+  if(menu){menu.open=false;menu.querySelector(':scope > summary')?.focus();event.preventDefault();event.stopPropagation();}
+});
+
+let documentData = null, variants = [], current = null, originals = [], drag = null, publicationFile = null, saveReady = false, saving = false, loadSequence = 0;
+let editMode=false, showAvailable=false;
+$('setlist-actions').open=window.matchMedia('(min-width:900px)').matches;
+function displayFrDate(value,withTime=true){if(typeof value!=='string')return String(value??'');if(/^\d{4}-\d{2}-\d{2}$/.test(value))return value.slice(8,10)+'/'+value.slice(5,7)+'/'+value.slice(0,4);let iso=value.replace(' ','T').replace(/\.(\d{3})\d+/,'.$1');if(!/(Z|[+-]\d{2}:?\d{2})$/.test(iso))iso+='Z';const date=new Date(iso);if(Number.isNaN(date.getTime()))return value;return new Intl.DateTimeFormat('fr-FR',{timeZone:typeof MusicbandDateTimezone==='string'?MusicbandDateTimezone:'Europe/Paris',day:'2-digit',month:'2-digit',year:'numeric',...(withTime?{hour:'2-digit',minute:'2-digit'}:{})}).format(date);}
+function displayFrGeneratedLabel(value){return String(value??'').replace(/\d{4}-\d{2}-\d{2}[ T]\d{2}(?::\d{2}(?::\d{2}(?:\.\d{1,6})?)?|h\d{2}) UTC/g,text=>displayFrDate(text.slice(0,-4).replace("h",":")));}
+const MAX_BYTES = 16000000;
+function time(seconds){if(seconds===null||seconds===undefined)return '—';if(seconds<0)return '−'+time(-seconds);const h=Math.floor(seconds/3600),m=Math.floor((seconds%3600)/60),s=seconds%60;return h?`${h} h ${String(m).padStart(2,'0')} min ${String(s).padStart(2,'0')} s`:`${m} min ${String(s).padStart(2,'0')} s`;}
+function songTime(s){return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;}
+function integer(value,label){if(!Number.isSafeInteger(value)||value<0)throw new Error(`${label} doit être un nombre entier de secondes positif ou nul.`);return value;}
+function error(message){$('error').textContent=message;$('error').hidden=false;}
+function clearError(){$('error').hidden=true;$('error').textContent='';}
+function validateVariant(v){if(!v||typeof v!=='object'||!Array.isArray(v.songs)||(!v.songs.length&&v.draft!==true)||v.songs.length>1000)throw new Error('Chaque variante doit contenir une liste de morceaux.');for(const k of ['music_seconds','transition_seconds','pause_seconds','total_seconds'])integer(v[k],k);if(v.music_seconds+v.transition_seconds+v.pause_seconds!==v.total_seconds)throw new Error('La durée totale ne correspond pas à musique + transitions + pauses.');let music=0,encoreStarted=false;v.songs.forEach((s,i)=>{if(!s||typeof s.title!=='string'||!s.title.trim()||typeof s.artist!=='string')throw new Error('Titre ou artiste invalide.');music+=integer(s.duration_seconds,'Durée du morceau');if(s.position!==undefined&&s.position!==i+1)throw new Error('Les positions doivent correspondre à l’ordre des morceaux.');if(!['main','encore'].includes(s.section))throw new Error('Section attendue : main ou encore.');if(encoreStarted&&s.section!=='encore')throw new Error('Le rappel doit être placé après le set principal.');if(s.section==='encore')encoreStarted=true;if(s.guitar!==undefined&&s.guitar!==null&&typeof s.guitar!=='string')throw new Error('Code guitare invalide.');});if(music!==v.music_seconds)throw new Error('Les durées des morceaux ne correspondent pas au temps de musique.');if(v.guitar_changes!==null&&v.guitar_changes!==undefined)integer(v.guitar_changes,'Changements de guitare');if(v.margin_seconds!==undefined&&!Number.isSafeInteger(v.margin_seconds))throw new Error('Marge invalide.');return v;}
+// Contrat de lecture du JSON : identifiants propres à la publication, durées entières en secondes.
+function validateEditor(data,list){
+  if(data?.available_songs!==undefined){if(!Array.isArray(data.available_songs)||data.available_songs.length>1000||data.available_songs.some(s=>!s||typeof s.title!=='string'||typeof s.artist!=='string'))throw new Error('Réserve de morceaux invalide.');}
+  if(!data?.editor)return;
+  const r=data.editor;
+  integer(data.target_seconds,'Cible');
+  for(const field of ['normal_transition_seconds','linked_transition_seconds','guitar_change_extra_seconds','base_pause_seconds','presentation_seconds','encore_break_seconds','encore_count'])integer(r[field],field);
+  for(const field of ['required','forbidden_start','encore_required'])if(!Array.isArray(r[field])||r[field].some(id=>typeof id!=='string'))throw new Error('Contraintes d’édition invalides.');
+  if(!Array.isArray(r.sequences)||r.sequences.some(pair=>!Array.isArray(pair)||pair.length!==2||pair.some(id=>id!==null&&typeof id!=='string')))throw new Error('Enchaînements d’édition invalides.');
+  if(!Array.isArray(data.available_songs)||data.available_songs.length>1000)throw new Error('Catalogue d’édition invalide.');
+  for(const songs of [data.available_songs,...list.map(v=>v.songs)]){
+    const ids=new Set();
+    for(const song of songs){if(!song||typeof song.editor_id!=='string'||!song.editor_id||ids.has(song.editor_id)||typeof song.title!=='string'||typeof song.artist!=='string')throw new Error('Morceau d’édition absent ou dupliqué.');ids.add(song.editor_id);if(song.duration_seconds!==null)integer(song.duration_seconds,'Durée du morceau');}
+  }
+}
+function variantOptions(){
+  $('variant').replaceChildren();
+  variants.forEach((v,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=displayFrGeneratedLabel(v.name||v.id)||`Proposition ${i+1}`;$('variant').append(option);});
+  $('variant').hidden=variants.length<2;
+  if(current)$('variant').value=String(variants.indexOf(current));
+}
+let canEdit=false,canValidate=false,validationState=null;
+boundedJSON('../setlist_variants.php').then(session=>{canEdit=session.permissions?.edit===true;canValidate=session.permissions?.validate===true;saveControls();}).catch(()=>{canEdit=false;saveControls();});
+function saveControls(){
+  const locked=validationState?.locked===true;
+  if(locked){canEdit=false;editMode=false;}
+  $('validate-setlist').disabled=saving||!canValidate||!saveReady||!validationState?.available||locked||variants.some(v=>v.edited)||!current?.songs.length;
+  $('validate-setlist').hidden=!canValidate&&!locked;
+  $('validate-setlist').textContent=locked?'Setlist validée · figée':'Setliste validée';
+  const validated=validationState?.validation;
+  $('validation-status').textContent=validationState?.drift?'Attention : publication modifiée hors application après validation. L’instantané MySQL est conservé ; contrôler la source avant utilisation.':validated?'Publication figée · variante '+validated.variant_key+' · '+displayFrDate(validated.validated_at)+' · '+validated.validated_by:validationState?.available?'':'Validation persistante indisponible : préparer le schéma 011 dans Upgrade.';
+  $('validation-status').hidden=$('validation-status').textContent==='';
+  $('edit-mode').setAttribute('aria-pressed',String(editMode));
+  $('show-available').setAttribute('aria-pressed',String(showAvailable));
+  $('save').disabled=!canEdit||saving||!saveReady||!current?.edited||!editMode;
+  $('save').textContent=saving?'Enregistrement…':'Enregistrer';
+  // Indicateurs de présentation, calculés exclusivement depuis les états existants.
+  const pending=variants.some(v=>v.edited);
+  const state=validationState?.drift?'warning':locked?'validated':saving?'saving':pending?'pending':current?.saved_at?'saved':'view';
+  $('actions-state').dataset.state=state;
+  $('actions-state').textContent=({warning:'Validation à contrôler',validated:'Validée · figée',saving:'Enregistrement…',pending:'Modifications en attente',saved:'Enregistrée',view:'Consultation'})[state];
+  $('save').classList.toggle('has-pending-changes',Boolean(current?.edited));
+  $('validate-setlist').classList.toggle('is-validated',locked);
+  $('save').title=saveReady?'Créer une nouvelle variante sans écraser la précédente':'Sauvegarde disponible avec le serveur PHP et une publication éditable';
+  $('published').disabled=saving;$('variant').disabled=saving;
+  $('edit-mode').disabled=!canEdit||saving||!documentData?.editor;
+  $('restore').disabled=saving||!current?.edited||!editMode;
+  document.querySelectorAll('.song-controls button').forEach(button=>{button.disabled=saving;});
+}
+let relationSequence=0;
+// Charger les relations SQL à part ; ignorer une réponse devenue périmée après changement de publication.
+async function loadRelations(file,pageURL=null){
+  const box=$('sql-relations'), sequence=++relationSequence;
+  box.replaceChildren();box.hidden=true;
+  if(!file||location.protocol==='file:')return;
+  const url=new URL('../concerts.php',location.href);url.searchParams.set('related_setlist',file);
+  const source=new URL(pageURL||location.href,location.href);
+  if(source.searchParams.get('publication')===file)for(const [key,value] of source.searchParams)if(/^rel_[a-f0-9]{12}$/.test(key))url.searchParams.set(key,value);
+  try{
+    const result=await boundedJSON(url);
+    if(sequence!==relationSequence||publicationFile!==file)return;
+    if(typeof result.html!=='string')throw new Error('Relations invalides.');
+    box.innerHTML=result.html;box.hidden=result.html==='';
+  }catch(e){if(sequence===relationSequence){box.hidden=false;box.textContent='Relations SQL indisponibles. La setlist et ses exports restent accessibles.';}}
+}
+$('sql-relations').addEventListener('click',event=>{
+  const link=event.target.closest('a[data-related-page]');
+  if(!link)return;event.preventDefault();loadRelations(publicationFile,link.href);
+});
+function accept(data,file=null){const list=Array.isArray(data)?data:Array.isArray(data?.variants)?data.variants:data?.songs?[data]:null;if(!list||!list.length||list.length>20)throw new Error('JSON attendu : résultat du générateur, liste de variantes ou variante avec songs.');list.forEach(validateVariant);validateEditor(data,list);documentData=data;publicationFile=file;validationState=null;saveReady=false;variants=list;current=null;originals=structuredClone(list);editMode=false;showAvailable=list[0].draft===true;variantOptions();clearError();render(0);loadRelations(file);}
+// Une nouvelle ouverture invalide les chargements précédents et recharge droits/verrou de validation.
+async function openPublication(file,title,pushState=true){
+  const sequence=++loadSequence;
+  const data=await boundedJSON('../download.php?file='+encodeURIComponent(file));
+  if(sequence!==loadSequence)return;
+  data.title=title;accept(data,file);
+  const displayTitle=typeof title==='string'&&title.trim()!==''?title.trim():'';
+  const titleEl=$('brand-title'), sepEl=$('brand-separator');
+  if(titleEl&&sepEl){
+    if(displayTitle){titleEl.textContent=displayTitle;titleEl.title=displayTitle;titleEl.hidden=false;sepEl.hidden=false;}
+    else{titleEl.hidden=true;sepEl.hidden=true;}
+  }
+  document.title=(displayTitle?displayTitle+' · ':'')+'Musicband — Setlist Studio';
+  if(pushState&&history.pushState){
+    const currentUrl=new URL(location.href);
+    if(currentUrl.searchParams.get('publication')!==file){
+      currentUrl.searchParams.set('publication',file);
+      history.pushState({publication:file,title:displayTitle},'',currentUrl.toString());
+    }
+  }
+  if(!data.editor)return;
+  try{
+    const saved=await boundedJSON('../setlist_variants.php?file='+encodeURIComponent(file));
+    if(documentData!==data)return;
+    validationState=saved.state??null;canEdit=saved.permissions?.edit===true;canValidate=saved.permissions?.validate===true;saveControls();
+    if(!Array.isArray(saved.variants)||saved.variants.length>100||typeof saved.csrf!=='string')throw new Error('Réponse de sauvegarde invalide.');
+    for(const v of saved.variants){if(!v.editorRules)throw new Error('Contraintes de variante absentes.');validateVariant(v);validateEditor({...data,editor:v.editorRules},[v]);checkOrder(v.songs,v.editorRules);}
+    const ids=[...variants,...saved.variants].map(v=>v.id);
+    if(new Set(ids).size!==ids.length)throw new Error('Identifiants de variantes dupliqués.');
+    variants.push(...saved.variants);originals.push(...structuredClone(saved.variants));
+    saveReady=true;variantOptions();const frozenIndex=variants.findIndex(v=>v.id===validationState?.validation?.variant_key);render(frozenIndex>=0?frozenIndex:variants.indexOf(current));
+  }catch(e){if(documentData===data)error('Variantes enregistrées indisponibles : '+e.message);}
+}
+$('save').addEventListener('click',async()=>{
+  if(saving||!saveReady||!current?.edited||!editMode)return;
+  endDrag(true);
+  const source=current, data=documentData, file=publicationFile;
+  const snapshot={source_variant_id:source.id,songs:source.songs.map(s=>({editor_id:s.editor_id,section:s.section})),rules:structuredClone(editingRules())};
+  saving=true;saveControls();clearError();
+  try{
+    const session=await boundedJSON('../setlist_variants.php?file='+encodeURIComponent(file));
+    const result=await boundedJSON('../setlist_variants.php',{method:'POST',body:new URLSearchParams({csrf:session.csrf,file,sql_version:validationState?.version||'',variant:JSON.stringify(snapshot)})});
+    if(documentData!==data)return;
+    validationState=result.state??validationState;
+    const saved=validateVariant(result.variant);
+    if(!saved.editorRules)throw new Error('Contraintes de variante absentes.');
+    validateEditor({...data,editor:saved.editorRules},[saved]);checkOrder(saved.songs,saved.editorRules);
+    // La source redevient son instantané : l'édition sauvegardée est une nouvelle variante.
+    const sourceIndex=variants.indexOf(source);
+    if(result.replace){variants[sourceIndex]=saved;originals[sourceIndex]=structuredClone(saved);}else{variants[sourceIndex]=structuredClone(originals[sourceIndex]);variants.push(saved);originals.push(structuredClone(saved));}
+    current=saved;variantOptions();render(result.replace?sourceIndex:variants.length-1);
+    $('edit-status').textContent='Variante enregistrée : '+displayFrGeneratedLabel(saved.name);
+    if(saved.margin_seconds<0)error('Durée cible dépassée de '+time(-saved.margin_seconds)+'. La variante est enregistrée comme édition manuelle.');
+  }catch(e){error('Enregistrement non confirmé : '+e.message+' Vos modifications restent dans cette page.');}
+  finally{saving=false;saveControls();}
+});
+$('validate-setlist').addEventListener('click',async()=>{
+  if(saving||!canValidate||!saveReady||!current||variants.some(v=>v.edited)||validationState?.locked)return;
+  if(!window.confirm('Valider la variante « '+displayFrGeneratedLabel(current.name||current.id)+' » et figer toute cette publication ? Édition, renommage et suppression seront bloqués. Pour la modifier ensuite, il faudra la dupliquer.'))return;
+  const data=documentData,file=publicationFile,variantId=current.id;saving=true;endDrag(true);saveControls();clearError();
+  try{const session=await boundedJSON('../setlist_variants.php?file='+encodeURIComponent(file));if(documentData!==data)return;
+    if(session.state?.version!==validationState?.version)throw new Error('Les variantes ont changé : recharger la publication avant validation.');
+    const result=await boundedJSON('../setlist_variants.php',{method:'POST',body:new URLSearchParams({csrf:session.csrf,action:'validate',file,variant_id:variantId,validation_version:session.state.version,confirm:'yes'})});
+    if(documentData!==data)return;validationState=result.state;canEdit=false;editMode=false;render(variants.indexOf(current));
+  }catch(e){error('Validation non confirmée : '+e.message+' Recharger la publication avant toute nouvelle tentative.');}
+  finally{saving=false;saveControls();}
+});
+function element(tag,className,text){const el=document.createElement(tag);el.className=className;if(text!==undefined)el.textContent=text;return el;}
+function render(index){current=variants[index];$('variant').value=String(index);saveControls();document.body.classList.toggle('editing',canEdit&&editMode);$('empty').hidden=true;$('rows').hidden=false;$('rows').replaceChildren();$('total').textContent=time(current.total_seconds);$('count').textContent=String(current.songs.length);const encores=current.songs.filter(s=>s.section==='encore').length;$('encore').textContent=`${current.songs.length-encores} dans le set · ${encores} en rappel`;$('changes').textContent=current.guitar_changes===null||current.guitar_changes===undefined?'Inconnu':String(current.guitar_changes);$('margin').textContent=time(current.margin_seconds);$('music').textContent=time(current.music_seconds);$('transitions').textContent=time(current.transition_seconds)+(current.transition_estimated?' (estimé)':'');$('pauses').textContent=time(current.pause_seconds);$('target').textContent=Number.isSafeInteger(documentData?.target_seconds)?`Cible : ${time(documentData.target_seconds)}`:'Selon la durée cible';let section=null;current.songs.forEach((s,i)=>{if(s.section!==section){section=s.section;$('rows').append(element('div','section',section==='encore'?'Le rappel':'Le set principal'));const legend=element('div','legend');['#','Morceau','Guitare','Durée'].forEach(t=>legend.append(element('span','',t)));$('rows').append(legend);}const entry=element('div','entry');entry.dataset.index=String(i);const previous=current.songs[i-1];if(previous?.guitar&&s.guitar&&previous.guitar!==s.guitar)entry.append(element('div','change',`Changement de guitare · ${previous.guitar} → ${s.guitar}`));const row=element('div','song');row.append(element('span','position',String(i+1).padStart(2,'0')));const title=element('div','');title.append(element('div','title',s.title),element('div','artist',s.artist));if(canEdit&&documentData?.editor&&editMode){const controls=element('div','song-controls');const handle=element('button','drag-handle','⠿');handle.type='button';handle.setAttribute('aria-label','Déplacer '+s.title);handle.addEventListener('pointerdown',e=>beginDrag(e,i,handle));controls.append(handle);for(const [label,delta] of [['↑',-1],['↓',1]]){const b=element('button','',label);b.setAttribute('aria-label',(delta<0?'Monter ':'Descendre ')+s.title);b.onclick=()=>stepSong(i,delta);controls.append(b);}const transfer=element('button','',s.section==='encore'?'→ Set':'→ Rappel');transfer.setAttribute('aria-label',(s.section==='encore'?'Remettre dans le set principal : ':'Mettre en rappel : ')+s.title);transfer.onclick=()=>transferSong(i);controls.append(transfer);const remove=element('button','','−');remove.setAttribute('aria-label','Retirer '+s.title);remove.onclick=()=>removeSong(i);controls.append(remove);title.append(controls);}row.append(title);const guitar=element('div','');guitar.append(element('span','guitar',s.guitar||'—'));row.append(guitar,element('span','duration',songTime(s.duration_seconds)));entry.append(row);$('rows').append(entry);});renderAvailable();$('restore').disabled=!current.edited||!editMode;$('edit-status').textContent=!canEdit?'Lecture seule · modification non autorisée pour votre rôle.':!documentData?.editor?'Édition indisponible : le bloc editor manque dans le JSON chargé.':current.edited?'Modifications non enregistrées · exports actualisés':current.saved_at?'Variante enregistrée : '+displayFrGeneratedLabel(current.name):editMode?'Déplacer avec ⠿ ou ↑/↓. Les enchaînements restent groupés.':current.draft&&!current.songs.length?'Setlist vide · activez Édition puis ajoutez des morceaux depuis Tous morceaux.':'Consultation · activez le mode édition pour modifier la liste.';$('print').disabled=!current.songs.length;$('tempo').disabled=!current.songs.length;$('sacem').disabled=!current.songs.length;$('excel').disabled=!current.songs.length;saveControls();}
+// Les éditions restent locales jusqu’au clic explicite sur Enregistrer.
+function editingRules(){if(!canEdit)throw new Error('Modification non autorisée pour votre rôle.');const r=current?.editorRules||documentData?.editor;if(!r)throw new Error('Régénérez et republiez cette setlist pour activer l’édition.');return r;}
+// Fermer transitivement les paires imposées pour déplacer/retirer un enchaînement entier.
+function blockIds(id){const pairs=editingRules().sequences;const ids=new Set([id]);let changed=true;while(changed){changed=false;for(const [a,b] of pairs)if(ids.has(a)||ids.has(b)){for(const x of [a,b])if(!ids.has(x)){ids.add(x);changed=true;}}}return ids;}
+// Garde-fou ergonomique local ; variantBuild côté PHP reste le contrôle avant sauvegarde.
+function checkOrder(songs,r=editingRules()){const ids=songs.map(s=>s.editor_id);if(!songs.length||new Set(ids).size!==ids.length)throw new Error('La liste doit contenir des morceaux sans doublon.');if(r.required.some(id=>!ids.includes(id)))throw new Error('Un morceau obligatoire ne peut pas être retiré.');if((r.opening&&ids[0]!==r.opening)||r.forbidden_start.includes(ids[0]))throw new Error('Ce déplacement ne respecte pas le morceau d’ouverture.');let encore=false;for(const song of songs){if(encore&&song.section!=='encore')throw new Error('Le rappel doit rester après le set principal.');encore ||= song.section==='encore';}if(!songs.some(s=>s.section==='main')||songs.filter(s=>s.section==='encore').length!==r.encore_count)throw new Error('Conserver un morceau dans le set principal et un compteur de rappel cohérent.');for(const id of [r.presentation].filter(Boolean))if(!songs.some(s=>s.editor_id===id&&s.section==='main'))throw new Error('La présentation doit rester dans le set principal.');if(r.encore_required.some(id=>!songs.some(s=>s.editor_id===id&&s.section==='encore')))throw new Error('Conserver les titres imposés en rappel.');for(const [a,b] of r.sequences)if(ids.includes(a)||ids.includes(b)){const i=ids.indexOf(a);if(i<0||ids[i+1]!==b||songs[i].section!==songs[i+1].section)throw new Error('L’enchaînement obligatoire doit rester groupé dans une même section.');}}
+// Appliquer une édition cohérente en mémoire et recalculer les durées, sans écriture réseau.
+function updateSongs(songs,r=editingRules()){try{if(saving)throw new Error('Attendre la fin de l’enregistrement.');if(!editMode)throw new Error('Activer le mode édition avant de modifier la liste.');songs=songs.map(s=>({...s}));r={...r,encore_count:songs.filter(s=>s.section==='encore').length};checkOrder(songs,r);let transitions=0,changes=0,unknown=0;songs.forEach((song,i)=>{song.position=i+1;song.hidden=false;if(!i)return;const prev=songs[i-1];if(!prev.guitar||!song.guitar)unknown++;else if(prev.guitar!==song.guitar)changes++;if(prev.section===song.section)transitions+=r.sequences.some(([a,b])=>a===prev.editor_id&&b===song.editor_id)?r.linked_transition_seconds:r.normal_transition_seconds;});current.editorRules=r;current.songs=songs;current.presentation_seconds=r.presentation_seconds;current.encore_break_seconds=songs.some(s=>s.section==='encore')?r.encore_break_seconds:0;current.guitar_changes=unknown?null:changes;current.transition_estimated=unknown>0;current.music_seconds=songs.reduce((n,s)=>n+s.duration_seconds,0);current.transition_seconds=transitions+(changes+unknown)*r.guitar_change_extra_seconds;current.pause_seconds=r.base_pause_seconds+r.presentation_seconds+(songs.some(s=>s.section==='encore')?r.encore_break_seconds:0);current.total_seconds=current.music_seconds+current.transition_seconds+current.pause_seconds;current.margin_seconds=documentData.target_seconds-current.total_seconds;current.edited=true;render(variants.indexOf(current));clearError();if(current.margin_seconds<0)error('Durée cible dépassée de '+time(-current.margin_seconds)+'. La liste a été conservée.');return true;}catch(e){error(e.message);return false;}}
+function stepSong(index,delta){const ids=blockIds(current.songs[index].editor_id),positions=current.songs.flatMap((s,i)=>ids.has(s.editor_id)?[i]:[]);moveSong(index,(delta<0?Math.min(...positions):Math.max(...positions))+delta);}
+function sectionRules(ids,section){
+  const r=editingRules();
+  // Le transfert vers le set lève l'obligation de rappel du bloc déplacé,
+  // tout en conservant sa présence obligatoire et les autres contraintes.
+  return {...r,encore_required:r.encore_required.filter(id=>section==='encore'||!ids.has(id))};
+}
+function moveSong(from,to){
+  if(to<0||to>=current.songs.length||from===to)return;
+  const ids=blockIds(current.songs[from].editor_id);
+  if(ids.has(current.songs[to].editor_id))return;
+  const section=current.songs[to].section,targetIds=blockIds(current.songs[to].editor_id);
+  const target=current.songs.filter(s=>targetIds.has(s.editor_id));
+  const moved=current.songs.filter(s=>ids.has(s.editor_id)).map(s=>({...s,section}));
+  const rest=current.songs.filter(s=>!ids.has(s.editor_id));
+  const anchor=from<to?rest.indexOf(target.at(-1))+1:rest.indexOf(target[0]);
+  rest.splice(anchor,0,...moved);updateSongs(rest,sectionRules(ids,section));
+}
+function transferSong(index){
+  const ids=blockIds(current.songs[index].editor_id);
+  const section=current.songs[index].section==='encore'?'main':'encore';
+  const moved=current.songs.filter(s=>ids.has(s.editor_id)).map(s=>({...s,section}));
+  const rest=current.songs.filter(s=>!ids.has(s.editor_id));
+  const boundary=rest.findIndex(s=>s.section==='encore');
+  const anchor=section==='main'&&boundary>=0?boundary:rest.length;
+  rest.splice(anchor,0,...moved);updateSongs(rest,sectionRules(ids,section));
+}
+function removeSong(index){
+  try{
+    const ids=blockIds(current.songs[index].editor_id);
+    const songs=current.songs.filter(s=>!ids.has(s.editor_id));
+    // Le retrait manuel assouplit seulement les obligations des titres retirés,
+    // dans cette variante ; la configuration et les autres variantes restent intactes.
+    const r={...editingRules()};
+    r.required=r.required.filter(id=>!ids.has(id));
+    r.encore_required=r.encore_required.filter(id=>!ids.has(id));
+    r.encore_count=songs.filter(s=>s.section==='encore').length;
+    if(ids.has(r.opening))r.opening=null;
+    if(ids.has(r.presentation)){r.presentation=null;r.presentation_seconds=0;}
+    if(updateSongs(songs,r)){showAvailable=true;renderAvailable();}
+  }catch(e){error(e.message);}
+}
+function addition(song){const ids=blockIds(song.editor_id),selected=new Set(current.songs.map(s=>s.editor_id));const catalogue=new Map((documentData.available_songs||[]).map(s=>[s.editor_id,s]));const added=[...ids].map(id=>catalogue.get(id));if(added.some(s=>!s||s.unavailable_reason||!Number.isSafeInteger(s.duration_seconds)||s.duration_seconds<=0||!Number.isSafeInteger(s.tempo)||s.tempo<=0||typeof s.key!=='string'||!s.key.trim()))throw new Error('Ajout impossible : morceau ou enchaînement exclu, sans tempo, durée ou tonalité.');if(added.some(s=>selected.has(s.editor_id)))throw new Error('Cet enchaînement est déjà partiellement sélectionné.');const pairs=editingRules().sequences;let id=[...ids].find(id=>!pairs.some(([left,right])=>right===id&&ids.has(left)));const chain=[];while(id&&!chain.includes(id)){chain.push(id);id=pairs.find(([left])=>left===id)?.[1];}added.sort((a,b)=>chain.indexOf(a.editor_id)-chain.indexOf(b.editor_id));return added.map(s=>({...s,section:'main',hidden:false}));}
+function addSong(song){try{const added=addition(song),songs=[...current.songs];const boundary=songs.findIndex(s=>s.section==='encore');songs.splice(boundary<0?songs.length:boundary,0,...added);updateSongs(songs);}catch(e){error(e.message);}}
+function renderAvailable(){
+  $('show-available').setAttribute('aria-pressed',String(showAvailable));
+  const box=$('available');box.replaceChildren();box.hidden=!showAvailable;if(box.hidden)return;
+  const catalogue=documentData?.available_songs;
+  if(!Array.isArray(catalogue)){box.append(element('p','','Le JSON chargé ne contient pas le champ available_songs. La réserve ne peut pas être affichée. Une régénération avec le générateur actuel est nécessaire ; supprimer d’autres publications ne modifie pas ce fichier.'));return;}
+  if(!documentData?.editor)box.append(element('p','','Réserve disponible en consultation. Le bloc editor est absent : les ajouts et déplacements restent désactivés.'));
+  const identity=s=>s.editor_id?String(s.editor_id):s.sheet_row!==undefined?'row:'+s.sheet_row:JSON.stringify([s.title,s.artist]);
+  const selected=new Set(current.songs.map(identity));
+  const songs=catalogue.filter(s=>!selected.has(identity(s))&&s.ready!==false&&s.unavailable_reason!=='Morceau non prêt');
+  if(!songs.length){box.append(element('p','','Aucun autre morceau disponible pour le concert.'));return;}
+  const table=element('table','reserve-table');const caption=element('caption','',songs.length+' morceaux non sélectionnés');table.append(caption);
+  const head=element('thead',''),heading=element('tr','');for(const label of ['Morceau','Durée','BPM','Ajout']){const th=element('th','',label);th.scope='col';heading.append(th);}head.append(heading);table.append(head);const body=element('tbody','');
+  for(const song of songs){const row=element('tr',''),title=element('td','',song.title);title.append(element('small','',song.artist));let reason=song.unavailable_reason||'';if(documentData?.editor){try{addition(song);}catch(e){reason=reason||e.message;}}
+    if(reason)title.append(element('small','',reason));const cell=element('td','');const button=element('button','','+');button.setAttribute('aria-label','Ajouter '+song.title);button.disabled=Boolean(reason)||!documentData?.editor||!editMode;button.title=reason||(!editMode?'Activer le mode édition':'Ajouter au set principal');button.onclick=()=>addSong(song);cell.append(button);
+    row.append(title,element('td','',Number.isSafeInteger(song.duration_seconds)?songTime(song.duration_seconds):'—'),element('td','',String(song.tempo)),cell);body.append(row);
+  }table.append(body);box.append(table);
+}
+$('edit-mode').addEventListener('click',()=>{if(!canEdit||saving)return;endDrag(true);editMode=!editMode;if(current)render(variants.indexOf(current));else saveControls();});
+$('show-available').addEventListener('click',()=>{showAvailable=!showAvailable;saveControls();renderAvailable();});
+$('restore').addEventListener('click',()=>{const i=variants.indexOf(current);variants[i]=structuredClone(originals[i]);clearError();render(i);});
+function beginDrag(e,index,handle){if(saving||!editMode||e.button!==0)return;e.preventDefault();handle.setPointerCapture(e.pointerId);drag={index,target:index,handle};handle.closest('.entry').classList.add('dragging');}
+document.addEventListener('pointermove',e=>{if(!drag)return;const edge=60;if(e.clientY<edge)window.scrollBy(0,-12);else if(e.clientY>innerHeight-edge)window.scrollBy(0,12);const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.entry');document.querySelectorAll('.drop-target').forEach(el=>el.classList.remove('drop-target'));if(target){drag.target=Number(target.dataset.index);target.classList.add('drop-target');}});
+function endDrag(cancel=false){if(!drag)return;const {index,target}=drag;drag=null;document.querySelectorAll('.dragging,.drop-target').forEach(el=>el.classList.remove('dragging','drop-target'));if(!cancel)moveSong(index,target);}
+document.addEventListener('pointerup',()=>endDrag());document.addEventListener('pointercancel',()=>endDrag(true));document.addEventListener('keydown',e=>{if(e.key==='Escape')endDrag(true);});
+$('variant').addEventListener('change',()=>{clearError();render(Number($('variant').value));if(current.margin_seconds<0)error('Durée cible dépassée de '+time(-current.margin_seconds)+'.');});
+$('print').addEventListener('click',()=>window.print());
+// Export serveur de la variante choisie ; ne pas confondre cet export avec l’enregistrement des éditions.
+async function exportPDF(){
+  const format='sacem',button=$('sacem');
+  if(!current)return;const songs=structuredClone(current.songs);
+  const location=Object.prototype.hasOwnProperty.call(documentData,'concert_location')?documentData.concert_location:documentData.concert_context?.input?.location??null;
+  const report={songs:songs.map(s=>({title:s.title,artist:s.artist,duration_seconds:s.duration_seconds,section:s.section})),concert_location:location,target_seconds:documentData.target_seconds??0,transition_seconds:current.transition_seconds,pause_seconds:current.pause_seconds};
+  button.disabled=true;
+  try{
+    const session=await boundedJSON('../setlist_pdf.php');
+    const response=await fetch('../setlist_pdf.php',{method:'POST',credentials:'same-origin',body:new URLSearchParams({csrf:session.csrf,export:format,report:JSON.stringify(report)})});
+    if(!response.ok||!response.headers.get('Content-Type')?.includes('application/pdf'))throw new Error('Export PDF serveur impossible. Vérifier la session et la publication du site PHP.');
+    const url=URL.createObjectURL(await response.blob());const a=document.createElement('a');a.href=url;a.download='Programme SACEM.pdf';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);clearError();
+  }catch(e){error(e.message);}finally{button.disabled=false;}
+}
+// L’ordre courant (y compris non enregistré) est transmis ; les colonnes viennent du serveur.
+$('excel').addEventListener('click',async()=>{
+  if(!current?.songs.length)return;
+  const songs=structuredClone(current.songs);$('excel').disabled=true;
+  try{
+    const session=await boundedJSON('../setlist_excel.php');
+    const response=await fetch('../setlist_excel.php',{method:'POST',credentials:'same-origin',body:new URLSearchParams({csrf:session.csrf,report:JSON.stringify({songs,publication:publicationFile})})});
+    if(!response.ok||!response.headers.get('Content-Type')?.includes('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))throw new Error('Export Excel impossible : vérifier la session et les données.');
+    const url=URL.createObjectURL(await response.blob());const link=document.createElement('a');
+    link.href=url;link.download='Setlist.xlsx';document.body.append(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);clearError();
+  }catch(e){error(e.message);}finally{$('excel').disabled=!current?.songs.length;}
+});
+$('sacem').addEventListener('click',()=>exportPDF('sacem'));
+function xmlText(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));}
+function plistValue(value){if(typeof value==='boolean')return value?'<true/>':'<false/>';if(Number.isSafeInteger(value))return `<integer>${value}</integer>`;if(typeof value==='string')return `<string>${xmlText(value)}</string>`;if(Array.isArray(value))return '<array>'+value.map(plistValue).join('')+'</array>';if(value&&typeof value==='object')return '<dict>'+Object.entries(value).map(([k,v])=>`<key>${xmlText(k)}</key>${plistValue(v)}`).join('')+'</dict>';throw new Error('Réglage Tempo invalide.');}
+$('tempo').addEventListener('click',()=>{try{const settings=documentData?.tempo_export;if(!settings?.song_defaults||typeof settings.autoAdvance!=='boolean'||typeof settings.loop!=='boolean')throw new Error('Réglages Tempo absents : republiez avec la configuration actualisée.');const missing=current.songs.filter(s=>!Number.isSafeInteger(s.tempo)||s.tempo<=0);if(missing.length)throw new Error('Tempo manquant ou invalide : '+missing.map(s=>s.title).join(', ')+'. Renseignez la colonne Tempo puis régénérez la setlist.');const title=(typeof documentData.title==='string'?documentData.title:'Setlist Musicband')+' — '+displayFrGeneratedLabel(current.name||current.id||'Proposition');const songs=current.songs.map(s=>({...settings.song_defaults,title:s.title,tempo:s.tempo}));const xml='<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">'+plistValue({autoAdvance:settings.autoAdvance,loop:settings.loop,songs,title})+'</plist>\n';const url=URL.createObjectURL(new Blob([xml],{type:'application/octet-stream'}));const a=document.createElement('a');a.href=url;a.download='Tempo - '+title.replace(/[\\/:*?"<>|\u0000-\u001f]/g,'-').slice(0,160)+'.slist';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);clearError();}catch(e){error(e.message);}});
+// Borner les octets lus en flux avant décodage JSON ; une session expirée reste une erreur explicite.
+async function boundedJSON(url,options={}){
+  const response=await fetch(url,{...options,credentials:'same-origin',cache:'no-store'});
+  if(response.status===401)throw new Error('Session expirée : rechargez la page pour vous reconnecter.');
+  const reader=response.body.getReader();let chunks=[],size=0;
+  while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>MAX_BYTES){await reader.cancel();throw new Error('Réponse trop volumineuse.');}chunks.push(value);}
+  const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}
+  let data;
+  try{data=JSON.parse(new TextDecoder().decode(bytes));}catch(e){throw new Error(response.ok?'Réponse JSON invalide.':'Service indisponible.');}
+  if(!response.ok)throw new Error(typeof data?.error==='string'?data.error:'Service indisponible.');
+  return data;
+}
+$('published').addEventListener('change',async e=>{if(!e.target.value)return;try{await openPublication(e.target.value,e.target.selectedOptions[0].textContent,true);}catch(e){error(e.message);}});
+window.addEventListener('popstate',async()=>{
+  const requested=new URLSearchParams(location.search).get('publication');
+  if(requested&&$('published')){
+    const opt=[...$('published').options].find(o=>o.value===requested);
+    if(opt){$('published').value=requested;await openPublication(requested,opt.textContent,false);}
+  }
+});
+if(location.protocol!=='file:')boundedJSON('../download.php?file=setlists.json').then(async manifest=>{if(!Array.isArray(manifest.setlists))throw new Error('Index des setlists invalide.');const files=[];for(const item of manifest.setlists){if(!item||typeof item.file!=='string'||!/^setlist-[a-f0-9]{16}\.json$/.test(item.file))continue;const option=document.createElement('option');option.value=item.file;option.textContent=typeof item.title==='string'?displayFrGeneratedLabel(item.title):'Setlist publiée';$('published').append(option);files.push(item.file);}$('published').hidden=files.length===0;if(files.length&&!loadSequence){const requested=new URLSearchParams(location.search).get('publication');if(requested&&!files.includes(requested))throw new Error('Publication liée indisponible.');const latest=requested||(files.includes(manifest.latest_file)?manifest.latest_file:files[files.length-1]);$('published').value=latest;await openPublication(latest,$('published').selectedOptions[0].textContent,false);}}).catch(e=>error(e.message));
+</script>
+<script>/**
+ * Musicband NAVIGATION UI: Commandes de navigation partagées.
+ * - Remontée en haut (bouton flottant déplaçable, accessible au clavier).
+ * - Navigation contextuelle entre fiches détaillées (précédent/suivant < et >, swipe mobile, conservation filtres/tri).
+ * - Fermeture des menus au clavier (Escape).
+ * Sans dépendance externe ni appel réseau ; persistance de contexte via sessionStorage.
+ */
+(()=>{
+  /* =========================================================================
+   * 1. Bouton flottant de remontée en haut
+   * ========================================================================= */
+  function initScrollTop(){
+    if(document.getElementById('Musicband-scroll-top'))return;
+    const button=document.createElement('button');button.id='Musicband-scroll-top';button.className='Musicband-scroll-top';button.type='button';
+    button.setAttribute('aria-label','Remonter en haut. Appui long pour changer de côté.');
+    button.title='Remonter en haut · Appui long : changer de côté';
+    button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7M12 5v15"/></svg>';
+    let left=false,timer=null,longPress=false,start=null;
+    try{left=localStorage.getItem('Musicband-scroll-top-side')==='left';}catch(e){}
+    const place=()=>button.classList.toggle('is-left',left);place();
+    const update=()=>{button.hidden=window.scrollY<320;};update();
+    document.body.append(button);window.addEventListener('scroll',update,{passive:true});
+    const cancel=()=>{clearTimeout(timer);timer=null;};
+    button.addEventListener('pointerdown',event=>{
+      if(event.button!==0)return;
+      cancel();longPress=false;start={x:event.clientX,y:event.clientY};
+      button.setPointerCapture(event.pointerId);
+      timer=setTimeout(()=>{longPress=true;left=!left;place();try{localStorage.setItem('Musicband-scroll-top-side',left?'left':'right');}catch(e){}},700);
+    });
+    button.addEventListener('pointermove',event=>{if(start&&Math.hypot(event.clientX-start.x,event.clientY-start.y)>12)cancel();});
+    button.addEventListener('pointerup',()=>{cancel();start=null;});
+    button.addEventListener('pointercancel',()=>{cancel();start=null;longPress=false;});
+    button.addEventListener('lostpointercapture',cancel);
+    button.addEventListener('contextmenu',event=>event.preventDefault());
+    button.addEventListener('click',event=>{
+      if(longPress){event.preventDefault();longPress=false;return;}
+      longPress=false;window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    });
+    button.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();left=event.key==='ArrowLeft';place();try{localStorage.setItem('Musicband-scroll-top-side',left?'left':'right');}catch(e){}}});
+  }
+
+  /* =========================================================================
+   * 2. Navigation contextuelle entre fiches détaillées (< et >, swipe, contexte)
+   * ========================================================================= */
+  const SUPPORTED_MODULES=['songs','concerts','contacts','devis_factures','tasks'];
+  const STORAGE_PREFIX='Musicband_detail_nav_';
+
+  function detectModule(){
+    const path=window.location.pathname;
+    for(const m of SUPPORTED_MODULES){
+      if(path.endsWith('/'+m+'.php')||path.endsWith(m+'.php'))return m;
+    }
+    return null;
+  }
+
+  function getRecordId(){
+    const params=new URLSearchParams(window.location.search);
+    const id=params.get('id');
+    if(id&&/^\d+$/.test(id))return parseInt(id,10);
+    return null;
+  }
+
+  function isEditMode(){
+    const params=new URLSearchParams(window.location.search);
+    return params.has('edit')||params.get('action')==='edit'||params.get('action')==='new';
+  }
+
+  function getStoredContext(module){
+    try{
+      const raw=sessionStorage.getItem(STORAGE_PREFIX+module);
+      if(!raw)return null;
+      return JSON.parse(raw);
+    }catch(e){return null;}
+  }
+
+  function setStoredContext(module,data){
+    try{
+      sessionStorage.setItem(STORAGE_PREFIX+module,JSON.stringify(data));
+    }catch(e){}
+  }
+
+  function escapeHtml(str){
+    if(!str)return '';
+    return String(str)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  function extractListItems(module){
+    const rows=document.querySelectorAll('table tbody tr');
+    const items=[];
+    const seenIds=new Set();
+    const idRegex=/[?&]id=(\d+)/;
+
+    rows.forEach(tr=>{
+      let href=tr.getAttribute('data-song-href')||'';
+      let title='';
+      if(href){
+        const titleLink=tr.querySelector('.song-title-choice a, td:first-child a');
+        title=titleLink?titleLink.textContent.trim():'';
+      }else{
+        const anchor=tr.querySelector(`a[href*="${module}.php?id="], a[href*="?id="], a[href*="&id="]`);
+        if(anchor){
+          href=anchor.getAttribute('href');
+          title=anchor.textContent.trim();
+        }
+      }
+
+      if(href){
+        const match=href.match(idRegex);
+        if(match){
+          const id=parseInt(match[1],10);
+          if(!seenIds.has(id)){
+            seenIds.add(id);
+            if(!title){
+              const ariaLabel=tr.getAttribute('aria-label');
+              if(ariaLabel&&ariaLabel.startsWith('Ouvrir ')){
+                title=ariaLabel.slice(7);
+              }else{
+                title=tr.querySelector('.Musicband-cell-value, td')?.textContent?.trim()||'';
+              }
+            }
+            items.push({id,url:href,title});
+          }
+        }
+      }
+    });
+
+    return items;
+  }
+
+  function handleListView(module){
+    function saveContext(){
+      const items=extractListItems(module);
+      if(!items||items.length===0)return;
+      setStoredContext(module,{
+        module,
+        listUrl:window.location.href,
+        scrollY:window.scrollY||window.pageYOffset||0,
+        items,
+        updatedAt:Date.now()
+      });
+    }
+
+    const existing=getStoredContext(module);
+    if(existing&&existing.listUrl===window.location.href&&typeof existing.scrollY==='number'&&existing.scrollY>0){
+      requestAnimationFrame(()=>{
+        window.scrollTo({top:existing.scrollY,behavior:'instant'});
+      });
+    }
+
+    saveContext();
+
+    document.addEventListener('click',event=>{
+      const targetLink=event.target.closest(`a[href*="${module}.php?id="], a[href*="?id="], tr[data-song-href]`);
+      if(targetLink){
+        saveContext();
+      }
+    },{capture:true});
+
+    window.addEventListener('beforeunload',()=>{
+      const cur=getStoredContext(module);
+      if(cur&&cur.listUrl===window.location.href){
+        cur.scrollY=window.scrollY||window.pageYOffset||0;
+        setStoredContext(module,cur);
+      }
+    });
+  }
+
+  function setupHeaderNav(prevItem,nextItem,currentIndex,totalCount){
+    const header=document.querySelector('.Musicband-header');
+    if(!header)return;
+
+    const pageHeader=document.querySelector('.Musicband-page-header')||header;
+    pageHeader.classList.add('has-detail-nav');
+    header.classList.add('has-detail-nav');
+
+    let nav=header.querySelector('.Musicband-detail-nav');
+    if(!nav){
+      nav=document.createElement('nav');
+      nav.className='Musicband-detail-nav';
+      nav.setAttribute('aria-label','Navigation entre fiches');
+      const helpMenu=header.querySelector('.Musicband-help-menu');
+      if(helpMenu){
+        header.insertBefore(nav,helpMenu);
+      }else{
+        header.appendChild(nav);
+      }
+    }
+
+    const prevTitle=prevItem
+      ?`Fiche précédente (${currentIndex} / ${totalCount})`+(prevItem.title?` : ${prevItem.title}`:'')
+      :'Début de sélection · Aucune fiche précédente';
+    const nextTitle=nextItem
+      ?`Fiche suivante (${currentIndex+2} / ${totalCount})`+(nextItem.title?` : ${nextItem.title}`:'')
+      :'Fin de sélection · Aucune fiche suivante';
+
+    nav.innerHTML=`
+      <a class="Musicband-detail-nav-btn Musicband-detail-nav-prev${!prevItem?' is-disabled':''}"
+         href="${prevItem?escapeHtml(prevItem.url):'#'}"
+         role="button"
+         aria-label="${escapeHtml(prevTitle)}"
+         title="${escapeHtml(prevTitle)}"
+         ${!prevItem?'aria-disabled="true" tabindex="-1"':''}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <a class="Musicband-detail-nav-btn Musicband-detail-nav-next${!nextItem?' is-disabled':''}"
+         href="${nextItem?escapeHtml(nextItem.url):'#'}"
+         role="button"
+         aria-label="${escapeHtml(nextTitle)}"
+         title="${escapeHtml(nextTitle)}"
+         ${!nextItem?'aria-disabled="true" tabindex="-1"':''}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    `;
+
+    nav.querySelectorAll('.Musicband-detail-nav-btn').forEach(btn=>{
+      btn.addEventListener('click',event=>{
+        if(btn.classList.contains('is-disabled')||btn.getAttribute('aria-disabled')==='true'){
+          event.preventDefault();
+        }
+      });
+      btn.addEventListener('keydown',event=>{
+        if(event.key===' '||event.key==='Spacebar'){
+          event.preventDefault();
+          if(!btn.classList.contains('is-disabled')){
+            btn.click();
+          }
+        }
+      });
+    });
+
+    nav.addEventListener('keydown',event=>{
+      if(event.key==='ArrowLeft'){
+        const prevBtn=nav.querySelector('.Musicband-detail-nav-prev');
+        if(prevBtn&&!prevBtn.classList.contains('is-disabled')){
+          event.preventDefault();
+          prevBtn.focus();
+        }
+      }else if(event.key==='ArrowRight'){
+        const nextBtn=nav.querySelector('.Musicband-detail-nav-next');
+        if(nextBtn&&!nextBtn.classList.contains('is-disabled')){
+          event.preventDefault();
+          nextBtn.focus();
+        }
+      }
+    });
+  }
+
+  function setupSwipeNav(prevItem,nextItem){
+    let touchStartX=0;
+    let touchStartY=0;
+    let touchStartTime=0;
+    let touchValid=false;
+
+    function isInteractiveOrScrollable(target){
+      if(!target)return false;
+      if(target.closest('input, textarea, select, button, a, label, audio, video, iframe, pre, code, [contenteditable="true"], [role="button"], [role="link"], .Musicband-menu, .Musicband-help-menu, .Musicband-scroll-top')){
+        return true;
+      }
+      let cur=target;
+      while(cur&&cur!==document.body&&cur!==document.documentElement){
+        if(cur.classList.contains('business-table-scroll')||cur.classList.contains('Musicband-related-scroll')){
+          return true;
+        }
+        const style=window.getComputedStyle(cur);
+        const overflowX=style.overflowX;
+        if((overflowX==='auto'||overflowX==='scroll')&&cur.scrollWidth>cur.clientWidth+2){
+          return true;
+        }
+        cur=cur.parentElement;
+      }
+      return false;
+    }
+
+    document.addEventListener('touchstart',event=>{
+      if(event.touches.length!==1){
+        touchValid=false;
+        return;
+      }
+
+      const touch=event.touches[0];
+      const x=touch.clientX;
+      const y=touch.clientY;
+
+      const edgeMargin=25;
+      if(x<edgeMargin||x>window.innerWidth-edgeMargin){
+        touchValid=false;
+        return;
+      }
+
+      if(isInteractiveOrScrollable(event.target)){
+        touchValid=false;
+        return;
+      }
+
+      touchStartX=x;
+      touchStartY=y;
+      touchStartTime=Date.now();
+      touchValid=true;
+    },{passive:true});
+
+    document.addEventListener('touchend',event=>{
+      if(!touchValid)return;
+      touchValid=false;
+
+      if(!event.changedTouches||event.changedTouches.length===0)return;
+      const touch=event.changedTouches[0];
+      const deltaX=touch.clientX-touchStartX;
+      const deltaY=touch.clientY-touchStartY;
+      const duration=Date.now()-touchStartTime;
+
+      if(duration>600||duration<40)return;
+      const absX=Math.abs(deltaX);
+      const absY=Math.abs(deltaY);
+
+      if(absX<60)return;
+      if(absX<absY*1.8)return;
+
+      if(deltaX>0){
+        if(prevItem&&prevItem.url){
+          window.location.href=prevItem.url;
+        }
+      }else{
+        if(nextItem&&nextItem.url){
+          window.location.href=nextItem.url;
+        }
+      }
+    },{passive:true});
+
+    document.addEventListener('touchcancel',()=>{
+      touchValid=false;
+    },{passive:true});
+  }
+
+  function handleDetailView(module,recordId){
+    const context=getStoredContext(module);
+    if(!context||!Array.isArray(context.items)||context.items.length===0){
+      return;
+    }
+
+    const currentIndex=context.items.findIndex(item=>item.id===recordId);
+    if(currentIndex===-1){
+      return;
+    }
+
+    const totalCount=context.items.length;
+    const prevItem=currentIndex>0?context.items[currentIndex-1]:null;
+    const nextItem=currentIndex<totalCount-1?context.items[currentIndex+1]:null;
+
+    if(context.listUrl){
+      const links=document.querySelectorAll('main a, .tasks-container a, details a, p a');
+      links.forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if(href.includes(module+'.php')&&!href.includes('id=')&&!href.includes('edit=')&&!href.includes('action=')){
+          const text=a.textContent.toLowerCase();
+          if(text.includes('liste')||text.includes('morceaux')||text.includes('retour')||text.includes('←')||text.includes('tous')){
+            a.setAttribute('href',context.listUrl);
+          }
+        }
+      });
+    }
+
+    setupHeaderNav(prevItem,nextItem,currentIndex,totalCount);
+    setupSwipeNav(prevItem,nextItem);
+  }
+
+  function initDetailNavigation(){
+    const module=detectModule();
+    if(!module)return;
+
+    const recordId=getRecordId();
+    if(recordId!==null&&!isEditMode()){
+      handleDetailView(module,recordId);
+    }else if(recordId===null&&!isEditMode()){
+      handleListView(module);
+    }
+  }
+
+  /* =========================================================================
+   * 3. Aide Musicband : ouverture systématique avec rubriques repliées
+   * ========================================================================= */
+  function initHelpCollapse(){
+    document.addEventListener('click',event=>{
+      const summary=event.target.closest('.Musicband-help-menu>summary');
+      if(summary){
+        const menu=summary.parentElement;
+        if(menu&&!menu.open){
+          menu.querySelectorAll('.Musicband-help-panel details[open]').forEach(d=>{d.open=false;});
+        }
+      }
+    });
+    document.querySelectorAll('.Musicband-help-menu').forEach(menu=>{
+      menu.addEventListener('toggle',()=>{
+        if(menu.open){
+          menu.querySelectorAll('.Musicband-help-panel details[open]').forEach(d=>{d.open=false;});
+        }
+      });
+    });
+  }
+
+  /* =========================================================================
+   * 4. Initialisation et écouteurs globaux
+   * ========================================================================= */
+  function init(){
+    initScrollTop();
+    initDetailNavigation();
+    initHelpCollapse();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init,{once:true});
+  }else{
+    init();
+  }
+
+  window.addEventListener('pageshow',()=>{
+    initDetailNavigation();
+  });
+
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){
+      document.querySelectorAll('.Musicband-menu[open],.Musicband-help-menu[open]').forEach(menu=>{
+        menu.open=false;
+        menu.querySelector('summary')?.focus();
+      });
+    }
+  });
+})();
+</script></body></html>

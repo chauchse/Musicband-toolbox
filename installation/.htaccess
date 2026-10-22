@@ -1,0 +1,6 @@
+# Community : sources privées et anciennes routes hors offre interdites.
+Options -Indexes
+DirectoryIndex index.php
+<FilesMatch "(?:\.(?:sql|json|py|log|bak|ini|env)$|^(?:home-template|template)\.html$|^(?:community-path|community-migrations|community-storage|community-pwa|community-webpush-payload|auth_config|devis_factures|documents_pdf|expenses|accounting|google_callback|setlist_import|sound_api)\.php$)">
+Require all denied
+</FilesMatch>

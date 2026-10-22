@@ -1,0 +1,140 @@
+/* Musicband CSS: web/css/configuration.css — styles de présentation, sans logique métier. */
+/* Configuration administrateur : navigation par onglets, éditeurs de champs et formulaires de réglages.
+ * Complète le socle commun sur les vues rendues par admin.php et les services spécialisés.
+ */
+.config-nav {
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:8px 0;
+  margin:0 0 16px;
+  max-width:100%
+}
+.config-nav a {
+  flex:none;
+  display:block;
+  padding:9px 12px;
+  border:1px solid var(--Musicband-line, #383838);
+  border-radius:var(--Musicband-radius-md, 8px);
+  background:var(--Musicband-surface-elevated, #242424);
+  color:var(--Musicband-text, #f5f5f5);
+  text-decoration:none;
+  transition:background 0.15s ease, border-color 0.15s ease;
+}
+.config-nav a:focus-visible,.config-nav a:hover {
+  outline:2px solid var(--Musicband-primary-accent, #ed737b);
+  outline-offset:2px;
+  background:var(--Musicband-surface-hover, #2a2a2a);
+}
+.config-section {
+  min-width:0;
+  scroll-margin-top:12px;
+  border-top:1px solid var(--Musicband-line, #383838);
+  margin-top:24px;
+  padding-top:12px
+}
+.config-section>h2 {
+  font-size:1.5rem
+}
+.config-top {
+  font-size:.9rem;
+  color:var(--Musicband-text-muted, #a0a0a0);
+}
+@media(min-width:900px) {
+  .config-nav {
+    flex-wrap:wrap
+  }
+}
+@media print {
+  .config-nav,.config-top {
+    display:none
+  }
+}
+
+/* Ordre commun : lignes compactes, poignée tactile et alternatives clavier. */
+.navigation-order-item {
+  margin: 8px 0;
+  padding: 8px 12px;
+  min-width: 0;
+  background: var(--Musicband-surface-card, #1c1c1c);
+  border: 1px solid var(--Musicband-line, #383838);
+  border-radius: var(--Musicband-radius-md, 8px);
+}
+.navigation-order-item .navigation-order-controls { display: flex; gap: 6px; float: right; margin: 0 0 6px 12px; }
+.navigation-order-controls button { width: auto; min-width: 44px; min-height: 44px; margin: 0; padding: 6px 10px; }
+.navigation-order-handle { cursor: grab; touch-action: none; }
+.navigation-order-item p { clear: both; margin: 4px 0; font-size: .85rem; color: var(--Musicband-text-muted, #a0a0a0); }
+.navigation-order-item label { margin: 4px 0; }
+
+/* Onglets progressifs : une seule section visible, liens d’ancrage conservés sans JS. */
+.config-tabs-ready .config-section[hidden] {display:none!important}
+.config-tabs-ready .config-section {margin-top:0;border-top:0;padding-top:0}
+.config-tabs-ready .config-top {display:none}
+.config-nav[role="tablist"] {flex-wrap:nowrap;scroll-padding-inline:4px;padding:8px 4px 12px;border-bottom:1px solid var(--Musicband-line, #383838);overscroll-behavior-x:contain}
+.config-nav [role="tab"] {min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center}
+.config-nav [role="tab"][aria-selected="true"] {font-weight:700;background:var(--Musicband-surface-active, #303030);border-color:var(--Musicband-primary-accent, #ed737b);box-shadow:inset 0 -3px var(--Musicband-primary, #b91c1c)}
+@media print {.config-tabs-ready .config-section[hidden] {display:block!important}}
+
+/* Rôles et autorisations (RBAC) : matrice modulaire, tableaux réactifs et badges. */
+.rbac-section { margin-top: 16px; }
+.rbac-roles-table-wrapper { overflow-x: auto; margin: 12px 0 16px; }
+.rbac-roles-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.rbac-roles-table th, .rbac-roles-table td { padding: 10px 14px; border: 1px solid var(--Musicband-line, #383838); text-align: left; vertical-align: middle; }
+.rbac-roles-table th { background: var(--Musicband-table-head, #242424); font-weight: 600; color: var(--Musicband-text, #f5f5f5); }
+.rbac-badge { display: inline-block; padding: 2px 6px; font-size: .75rem; border-radius: var(--Musicband-radius-sm, 4px); border: 1px solid var(--appearance-neutral-line, #444); background: var(--appearance-neutral-elevated, #262626); font-weight: 500; color: var(--appearance-neutral-text, #eee); }
+.rbac-badge-system { background: var(--appearance-neutral-elevated, #262626); border-color: var(--appearance-neutral-border, #555); color: var(--appearance-neutral-text, #ddd); }
+.rbac-badge-custom { background: var(--Musicband-primary-subtle, #251818); border-color: var(--Musicband-primary-subtle-border, #63262b); color: var(--Musicband-primary-accent, #ed737b); }
+.rbac-type-read { background: #15293d; border-color: #2563eb; color: #93c5fd; }
+.rbac-type-create { background: var(--Musicband-success-bg, #143823); border-color: var(--Musicband-success-border, #16a34a); color: var(--Musicband-success-text, #86efac); }
+.rbac-type-edit { background: var(--Musicband-warning-bg, #332b17); border-color: var(--Musicband-warning-border, #ca8a04); color: var(--Musicband-warning-text, #fde047); }
+.rbac-type-delete { background: var(--Musicband-danger-bg, #451212); border-color: var(--Musicband-danger-border, #dc2626); color: var(--Musicband-danger-text, #fca5a5); }
+.rbac-type-specific { background: #2a1f3d; border-color: #7c3aed; color: #c4b5fd; }
+.rbac-sensitive-pill { display: inline-block; font-size: .7rem; padding: 1px 5px; border-radius: 3px; background: var(--Musicband-primary, #b91c1c); color: #fff; vertical-align: middle; margin-left: 6px; }
+.rbac-row-sensitive { background: var(--Musicband-primary-subtle, #251818); }
+.rbac-inline-details { display: inline-block; margin-left: 6px; }
+.rbac-inline-form { margin: 6px 0; display: flex; flex-direction: column; gap: 4px; }
+.rbac-create-role-details { margin: 12px 0 20px; padding: 10px 14px; border: 1px dashed var(--Musicband-line, #383838); border-radius: var(--Musicband-radius-md, 8px); background: var(--Musicband-surface-card, #1c1c1c); }
+.rbac-create-role-form { margin-top: 10px; display: grid; gap: 8px; }
+.rbac-role-selector-p { margin: 12px 0; }
+.rbac-role-tab { display: inline-block; margin: 0 4px 6px 0; padding: 6px 12px; border: 1px solid var(--Musicband-line, #383838); border-radius: var(--Musicband-radius-sm, 4px); text-decoration: none; color: var(--Musicband-text, #eee); background: var(--Musicband-surface-elevated, #242424); }
+.rbac-role-tab.active { font-weight: bold; background: var(--Musicband-surface-active, #303030); border-color: var(--Musicband-primary-accent, #ed737b); box-shadow: inset 0 -3px var(--Musicband-primary, #b91c1c); }
+.rbac-current-role { color: var(--Musicband-primary-accent, #ed737b); font-weight: bold; }
+.rbac-module-fieldset { margin: 16px 0; padding: 14px; border: 1px solid var(--Musicband-line, #383838); border-radius: var(--Musicband-radius-md, 8px); background: var(--Musicband-surface-card, #1c1c1c); }
+.rbac-module-legend { padding: 0 8px; font-size: 1.05rem; display: flex; align-items: center; justify-content: space-between; gap: 12px; width: calc(100% - 16px); }
+.rbac-module-controls { font-size: .85rem; font-weight: normal; }
+.rbac-btn-toggle { font-size: .8rem; padding: 3px 8px; min-height: 30px; margin-left: 4px; cursor: pointer; }
+.rbac-module-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: .9rem; }
+.rbac-module-table th, .rbac-module-table td { padding: 8px 10px; border: 1px solid var(--Musicband-line, #383838); text-align: left; vertical-align: middle; }
+.rbac-module-table th { background: var(--Musicband-table-head, #242424); font-weight: 600; color: var(--Musicband-text, #f5f5f5); }
+.rbac-th-check, .rbac-check-cell { text-align: center; width: 80px; }
+.rbac-desc-cell { color: var(--Musicband-text-muted, #a0a0a0); font-size: .85rem; }
+.rbac-submit-wrapper { margin: 20px 0; text-align: right; }
+.rbac-user-effective-details { margin: 8px 0; font-size: .9rem; }
+.rbac-effective-box { padding: 10px 14px; background: var(--Musicband-surface, #191919); border: 1px solid var(--Musicband-line, #383838); border-radius: var(--Musicband-radius-md, 8px); max-height: 240px; overflow-y: auto; margin-top: 6px; }
+.rbac-effective-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 4px 12px; }
+.rbac-perm-granted { color: #86efac; font-weight: 500; }
+.rbac-perm-denied { color: var(--appearance-neutral-muted, #777); text-decoration: line-through; }
+
+/* Gestion de l’aide : formulaire d’édition Markdown */
+.help-admin-section { margin-top: 16px; }
+.help-editor-form { margin: 16px 0; }
+.help-form-row { margin-bottom: 14px; }
+
+/* Configuration centralisée des modules : tableau de tri, noms d'affichage et icônes */
+.module-config-section { margin-top: 16px; }
+.module-config-form { margin: 16px 0; }
+.module-config-table-wrapper { overflow-x: auto; margin: 12px 0 16px; -webkit-overflow-scrolling: touch; }
+.module-config-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.module-config-table th, .module-config-table td { padding: 8px 10px; border: 1px solid var(--Musicband-line, #383838); text-align: left; vertical-align: middle; }
+.module-config-table th { background: var(--Musicband-table-head, #242424); font-weight: 600; color: var(--Musicband-text, #f5f5f5); }
+.module-config-row:hover td { background: var(--Musicband-surface-active, #222); }
+.module-order-cell .navigation-order-controls { display: inline-flex; gap: 4px; align-items: center; float: none; margin: 0; }
+.module-order-cell .navigation-order-controls button { width: auto; min-width: 32px; min-height: 32px; padding: 4px 8px; font-size: .88rem; margin: 0; }
+.module-icon-selector { display: flex; align-items: center; gap: 8px; }
+.module-icon-preview { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex: none; color: var(--Musicband-text, #f5f5f5); }
+.module-icon-preview svg { width: 20px; height: 20px; stroke: currentColor; }
+.module-icon-select { max-width: 130px; font-size: .85rem; padding: 4px 6px; }
+.module-display-name-input { width: 100%; box-sizing: border-box; font-size: .92rem; padding: 6px 8px; }
+.module-desc-input { width: 100%; box-sizing: border-box; }
+.module-access-badge { display: inline-block; font-size: .78rem; padding: 2px 6px; border-radius: 4px; background: var(--appearance-neutral-elevated, #262626); color: var(--appearance-neutral-muted, #a0a0a0); white-space: nowrap; }
+

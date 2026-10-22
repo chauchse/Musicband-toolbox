@@ -1,0 +1,1728 @@
+/* Musicband CSS: web/css/common.css — styles de présentation, sans logique métier. */
+/* Socle commun injecté dans les pages PHP par web/site.py ou scripts/prepare-community.php.
+ * Regroupe composants partagés, utilitaires, champs et adaptations responsive ; les feuilles de module le complètent.
+ */
+.business-table-scroll .field-group-start {
+  border-left:1px solid var(--appearance-neutral-muted, #777)
+}
+.field-layout-root {
+  grid-column:1/-1;
+  min-width:0;
+  width:100%
+}
+.field-layout-group {
+  min-width:0
+}
+.field-layout-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+  gap:0 16px
+}
+.field-layout-grid>* {
+  min-width:0
+}
+.field-layout-setting {
+  display:grid;
+  grid-template-columns:1fr 1fr 2fr;
+  gap:12px;
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:8px;
+  margin:10px 0;
+  padding:12px;
+  min-width:0
+}
+.field-layout-setting legend {
+  padding:0 8px
+}
+.field-column-group {
+  display:block;
+  font-size:calc(11px * var(--appearance-scale, 1));
+  font-weight:600;
+  color:var(--appearance-neutral-text, #ddd);
+  margin-bottom:5px
+}
+.layout-board {
+  min-width:0
+}
+.layout-card [hidden] {
+  display:none!important
+}
+.layout-editor-group {
+  padding:12px;
+  min-width:0
+}
+.layout-tools {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap
+}
+.layout-tools button {
+  width:auto;
+  min-width:44px;
+  margin:0;
+  padding:8px
+}
+.layout-tools label {
+  flex:1;
+  min-width:150px;
+  margin:0
+}
+.layout-tools strong {
+  flex:1
+}
+.field-layout-setting.layout-card {
+  display:block;
+  padding:8px;
+  margin:8px 0
+}
+.layout-card legend {
+  max-width:100%;
+  overflow-wrap:anywhere
+}
+.layout-editor-group [data-layout-items] {
+  min-height:64px;
+  padding:4px;
+  border:1px dashed var(--appearance-neutral-border, #666);
+  border-radius:8px
+}
+.layout-field-handle,.layout-group-handle {
+  cursor:grab;
+  touch-action:none
+}
+.layout-ghost {
+  opacity:.35;
+  border-color:var(--appearance-accent, #ed737b)
+}
+.layout-chosen {
+  outline:2px solid var(--appearance-accent, #ed737b)
+}
+.field-layout-setting[hidden],[data-field-options][hidden] {
+  display:none!important
+}
+.field-option-visible {
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+.field-option-visible input[type=checkbox] {
+  width:20px;
+  min-height:20px;
+  flex:none
+}
+.field-card-options {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,2fr);
+  gap:12px
+}
+.field-is-hidden {
+  border-style:dashed;
+  opacity:.7
+}
+.field-module>summary,[data-field-layout]>summary,[data-field-options]>summary {
+  padding:12px 0;
+  min-height:44px;
+  cursor:pointer;
+  font-weight:600
+}
+.field-editor-save {
+  position:sticky;
+  top:0;
+  z-index:4;
+  background:var(--appearance-neutral-card, #1c1c1c);
+  padding:4px 0
+}
+.field-editor-save button {
+  margin:0
+}
+@media(max-width:600px) {
+  .field-card-options {
+    grid-template-columns:1fr;
+    gap:0
+  }
+}
+.field-layout-sections {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:16px;
+  align-items:start
+}
+.field-layout-sections>.field-layout-group {
+  margin:0;
+  min-width:0;
+  overflow-wrap:anywhere
+}
+.field-layout-sections>.field-layout-group:first-child {
+  grid-column:1/-1
+}
+.field-layout-sections>.field-layout-group:not(:first-child) .field-layout-grid {
+  grid-template-columns:minmax(0,1fr)
+}
+.field-layout-group dl {
+  min-width:0
+}
+.field-layout-group dt,.field-layout-group dd {
+  min-width:0;
+  overflow-wrap:anywhere
+}
+.field-layout-group dd {
+  margin:0 0 12px
+}
+.business-relations-footer,#sql-relations {
+  grid-column:1/-1;
+  width:100%;
+  min-width:0
+}
+@media screen {
+  .field-layout-container {
+    container:Musicband-fields/inline-size
+  }
+  @container Musicband-fields (min-width:760px) {
+    .field-layout-columns-2,.field-layout-columns-3 {
+      grid-template-columns:repeat(2,minmax(0,1fr))
+    }
+    .field-layout-sections>.field-layout-group:first-child dl {
+      display:grid;
+      grid-template-columns:minmax(140px,1fr) minmax(0,4fr);
+      gap:8px 16px
+    }
+    .field-layout-sections>.field-layout-group:first-child dt,.field-layout-sections>.field-layout-group:first-child dd {
+      margin:0;
+      padding:8px 0;
+      border-bottom:1px solid var(--appearance-neutral-line, #333)
+    }
+  }
+  @container Musicband-fields (min-width:1160px) {
+    .field-layout-columns-3 {
+      grid-template-columns:repeat(3,minmax(0,1fr))
+    }
+  }
+}
+@media screen and (max-width:600px) {
+  .field-layout-setting {
+    grid-template-columns:1fr 1fr;
+    gap:8px
+  }
+  .field-layout-setting label:last-child {
+    grid-column:1/-1
+  }
+  .field-layout-grid {
+    grid-template-columns:1fr
+  }
+}
+.Musicband-table-label {
+  display:none
+}
+.Musicband-cell-value {
+  min-width:0;
+  overflow-wrap:anywhere
+}
+.Musicband-related {
+  min-width:0;
+  margin:14px 0
+}
+.Musicband-related-scroll {
+  overflow:auto;
+  max-width:100%
+}
+.Musicband-related table {
+  border-collapse:collapse;
+  width:100%;
+  font-size:calc(14px * var(--appearance-scale, 1))
+}
+.Musicband-related caption {
+  text-align:left;
+  font-weight:600;
+  padding:8px
+}
+.Musicband-related th,.Musicband-related td {
+  text-align:left;
+  vertical-align:top;
+  min-width:120px;
+  padding:10px;
+  border-bottom:1px solid var(--appearance-neutral-border, #555);
+  overflow-wrap:anywhere
+}
+.Musicband-related nav {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap
+}
+.Musicband-related a {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  color:inherit
+}
+@media print {
+  .Musicband-related,#sql-relations {
+    display:none!important
+  }
+}
+.Musicband-beta[hidden] {
+  display:none!important
+}
+.module h2 {
+  flex-wrap:wrap
+}
+.Musicband-beta {
+  display:inline-block;
+  font-size:calc(10px * var(--appearance-scale, 1));
+  font-weight:600;
+  padding:2px 6px;
+  border:1px solid var(--appearance-neutral-muted, #777);
+  border-radius:6px;
+  color:var(--appearance-neutral-text, #ddd);
+  white-space:nowrap;
+  flex:none
+}
+.Musicband-icon {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  vertical-align:middle
+}
+.Musicband-icon svg {
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+@media screen {
+  body {
+    max-width:none!important;
+    width:100%;
+    padding:clamp(8px,1.2vw,20px)!important
+  }
+  .shell {
+    max-width:none;
+    width:100%;
+    padding:0
+  }
+  .Musicband-menu a {
+    display:flex;
+    align-items:center;
+    gap:10px
+  }
+  .Musicband-menu .Musicband-links {
+    max-height:calc(100dvh - 90px);
+    overflow:auto;
+    overscroll-behavior:contain
+  }
+  .modules {
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
+    gap:12px
+  }
+  .module {
+    padding:18px;
+    min-width:0
+  }
+  .module h2 {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0 0 8px
+  }
+  .module h2 .Musicband-icon {
+    width:44px;
+    height:44px;
+    background:var(--appearance-neutral-elevated, #292929);
+    border-radius:10px
+  }
+  .module h2 .Musicband-icon svg {
+    width:28px;
+    height:28px
+  }
+  .module p {
+    margin:6px 0
+  }
+  .Musicband-managed main {
+    min-width:0
+  }
+  .Musicband-managed section {
+    min-width:0
+  }
+  .Musicband-managed input,.Musicband-managed select,.Musicband-managed textarea {
+    max-width:100%
+  }
+  .toolbar button,.toolbar select,.tools button,.tools select {
+    min-height:44px
+  }
+  .Musicband-icon-options {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
+    gap:8px 18px
+  }
+  .Musicband-icon-options label {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0
+  }
+  .Musicband-icon-options select {
+    flex:1;
+    min-width:0
+  }
+  @media(min-width:900px) {
+    form[data-business-editor] {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0 18px;
+      align-items:start
+    }
+    form[data-business-editor]>fieldset,form[data-business-editor]>section,form[data-business-editor]>p,form[data-business-editor]>button {
+      grid-column:1/-1
+    }
+    .Musicband-managed main>dl {
+      display:grid;
+      grid-template-columns:minmax(160px,1fr) minmax(0,4fr);
+      gap:8px 16px
+    }
+    .Musicband-managed main>dl dt,.Musicband-managed main>dl dd {
+      margin:0;
+      padding:8px 0;
+      border-bottom:1px solid var(--appearance-neutral-line, #333)
+    }
+    .grid {
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr))
+    }
+  }
+  @media(max-width:600px),(max-height:500px) and (pointer:coarse) {
+    body {
+      padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))!important
+    }
+    header,.Musicband-header {
+      gap:8px!important;
+      margin:4px 0 12px!important
+    }
+    h1,.brand {
+      font-size:calc(20px * var(--appearance-scale, 1))!important;
+      letter-spacing:-.5px
+    }
+    h2 {
+      font-size:calc(18px * var(--appearance-scale, 1))
+    }
+    h3 {
+      font-size:calc(16px * var(--appearance-scale, 1))
+    }
+    .Musicband-home-logo img,.Musicband-logo {
+      width:46px!important;
+      max-height:38px;
+      padding:3px!important;
+      object-fit:contain
+    }
+    section,details.workflow {
+      padding:10px!important;
+      margin:10px 0!important;
+      border-radius:10px!important
+    }
+    p {
+      line-height:1.4;
+      margin:8px 0
+    }
+    label {
+      margin:8px 0 4px!important
+    }
+    input,select,textarea {
+      font-size:calc(16px * var(--appearance-scale, 1))!important;
+      padding:8px!important;
+      min-height:44px
+    }
+    button {
+      min-height:44px;
+      padding:8px 10px!important;
+      margin-top:8px
+    }
+    input[type=checkbox],input[type=radio] {
+      min-height:20px;
+      width:20px;
+      flex:none
+    }
+    form[data-business-editor] textarea {
+      min-height:44px!important;
+      height:44px
+    }
+    form[data-business-editor] textarea[name=commentaires],form[data-business-editor] textarea[name=adresse] {
+      min-height:72px!important;
+      height:72px
+    }
+    .business-toolbar {
+      gap:8px!important;
+      margin:12px 0!important
+    }
+    .business-toolbar form {
+      min-width:0!important;
+      width:100%;
+      max-width:none!important
+    }
+    .business-row-actions {
+      flex-wrap:wrap!important;
+      gap:4px!important
+    }
+    .business-action {
+      padding:8px!important
+    }
+    .business-table-scroll,.Musicband-related-scroll {
+      width:100%;
+      min-width:0;
+      overflow:visible!important
+    }
+    .business-table-scroll table,.business-table-scroll tbody,.Musicband-related table,.Musicband-related tbody {
+      display:block;
+      width:100%;
+      min-width:0
+    }
+    .business-table-scroll thead,.Musicband-related thead,.Musicband-related caption {
+      position:absolute;
+      width:1px;
+      height:1px;
+      overflow:hidden;
+      clip-path:inset(50%)
+    }
+    .business-table-scroll tbody tr,.Musicband-related tbody tr {
+      display:block;
+      width:100%;
+      min-width:0;
+      border:1px solid var(--appearance-neutral-border, #555);
+      border-radius:9px;
+      margin:8px 0;
+      padding:4px;
+      background:var(--appearance-neutral-card, #1c1c1c)
+    }
+    .business-table-scroll td,.Musicband-related td {
+      display:grid!important;
+      grid-template-columns:minmax(80px,30%) minmax(0,1fr);
+      gap:8px;
+      align-items:start;
+      width:100%;
+      min-width:0!important;
+      max-width:none!important;
+      padding:6px!important;
+      border-bottom:0;
+      overflow-wrap:anywhere
+    }
+    .business-table-scroll td.field-group-start {
+      border-left:0;
+      border-top:1px solid var(--appearance-neutral-border, #555)
+    }
+    .business-table-scroll td[hidden],.business-table-scroll th[hidden] {
+      display:none!important
+    }
+    .Musicband-table-label {
+      display:block;
+      font-size:calc(12px * var(--appearance-scale, 1));
+      font-weight:400;
+      color:var(--appearance-neutral-text, #bdbdbd);
+      overflow-wrap:anywhere
+    }
+    .business-row-actions {
+      min-width:0
+    }
+    .business-row-actions a {
+      max-width:100%;
+      white-space:normal
+    }
+    .business-table-scroll td:first-child .Musicband-cell-value {
+      font-weight:650
+    }
+    .business-table-scroll .Musicband-cell-value>a {
+      min-height:44px
+    }
+    .business-table-section {
+      padding:0!important
+    }
+    .business-table-section h3 {
+      padding:10px!important
+    }
+    .business-pagination {
+      gap:10px!important;
+      padding:8px!important
+    }
+    .business-derived-grid {
+      grid-template-columns:1fr!important;
+      gap:8px!important
+    }
+    .modules {
+      gap:8px
+    }
+    .module {
+      padding:12px
+    }
+    .module h2 {
+      font-size:calc(17px * var(--appearance-scale, 1))
+    }
+    .module p {
+      font-size:calc(13px * var(--appearance-scale, 1));
+      line-height:1.35
+    }
+    .Musicband-menu .Musicband-links {
+      position:fixed;
+      left:8px;
+      right:8px;
+      top:max(62px,env(safe-area-inset-top));
+      width:auto;
+      max-height:calc(100dvh - 78px);
+      padding:6px
+    }
+    .Musicband-menu a {
+      padding:9px 12px
+    }
+    .toolbar,.tools {
+      gap:6px
+    }
+    .stats {
+      gap:6px
+    }
+    .stat {
+      padding:8px
+    }
+    .stat strong {
+      font-size:calc(18px * var(--appearance-scale, 1))
+    }
+  }
+}
+@media screen {
+  .Musicband-page-header {
+    margin:0 0 8px!important;
+    gap:8px!important;
+    flex-wrap:nowrap!important
+  }
+  .Musicband-page-header h1 {
+    font-size:clamp(calc(18px * var(--appearance-scale, 1)),2vw,calc(24px * var(--appearance-scale, 1)));
+    line-height:1.2;
+    margin:0;
+    flex:1;
+    min-width:0;
+    overflow-wrap:anywhere
+  }
+  .Musicband-page-header .Musicband-home-logo img {
+    width:44px;
+    max-height:38px;
+    object-fit:contain;
+    padding:3px
+  }
+  .Musicband-page-header>.Musicband-menu {
+    margin-left:0
+  }
+  .Musicband-page-header>style {
+    display:none
+  }
+  .Musicband-managed main>p {
+    margin:6px 0
+  }
+  .Musicband-managed .business-toolbar {
+    gap:8px;
+    margin:8px 0;
+    align-items:center
+  }
+  .Musicband-managed .business-toolbar label {
+    margin:0 0 3px
+  }
+  .Musicband-managed .business-toolbar input {
+    padding:8px;
+    min-height:44px
+  }
+  .Musicband-managed .business-record-actions {
+    margin:6px 0
+  }
+  .Musicband-managed .business-action {
+    padding:8px 12px
+  }
+  .identity.Musicband-header {
+    margin:0 0 8px!important
+  }
+  .identity.Musicband-header h1 {
+    font-size:clamp(calc(18px * var(--appearance-scale, 1)),2vw,calc(24px * var(--appearance-scale, 1)))
+  }
+  header.Musicband-header>h1 {
+    margin-top:0;
+    margin-bottom:0
+  }
+  @media(max-width:600px) {
+    .Musicband-managed .business-toolbar {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      margin:8px 0!important
+    }
+    .Musicband-managed .business-toolbar form {
+      width:auto;
+      min-width:0
+    }
+    .Musicband-managed .business-columns summary {
+      padding:10px
+    }
+    .Musicband-managed .business-columns>div {
+      left:auto;
+      right:0
+    }
+    .Musicband-page-header .Musicband-home-logo img {
+      width:38px!important;
+      max-height:34px
+    }
+  }
+}
+/* Styles web/help.py : uniquement présentation. */
+.Musicband-header {
+  position:relative
+}
+.Musicband-help-menu {
+  position:static;
+  flex:none;
+  color:var(--appearance-neutral-text, #f5f5f5);
+  font:calc(14px * var(--appearance-scale, 1)) system-ui;
+  z-index:11
+}
+.Musicband-help-menu>summary {
+  display:block;
+  list-style:none;
+  cursor:pointer;
+  min-height:44px;
+  padding:12px!important;
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:12px;
+  background:var(--appearance-neutral-card, #1c1c1c)
+}
+.Musicband-help-menu>summary::-webkit-details-marker {
+  display:none
+}
+.Musicband-help-menu[open]>summary {
+  background:var(--appearance-neutral-elevated, #292929);
+  border-color:var(--appearance-neutral-text, #aaa)
+}
+.Musicband-help-menu:not([open])>.Musicband-help-panel {
+  display:none
+}
+.Musicband-help-panel {
+  position:absolute;
+  right:0;
+  top:100%;
+  width:min(680px,calc(100vw - 32px));
+  max-height:65vh;
+  overflow:auto;
+  overscroll-behavior:contain;
+  padding:16px;
+  background:var(--appearance-neutral-card, #1c1c1c);
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:12px;
+  box-shadow:0 16px 40px #0008;
+  line-height:1.6;
+  overflow-wrap:anywhere
+}
+.Musicband-help-panel h2 {
+  font-size:calc(18px * var(--appearance-scale, 1));
+  margin:0 0 8px
+}
+.Musicband-help-panel h3 {
+  font-size:calc(15px * var(--appearance-scale, 1));
+  margin:14px 0 5px
+}
+.Musicband-help-panel p,.Musicband-help-panel li {
+  color:var(--appearance-neutral-text, #ddd)
+}
+.Musicband-help-panel p {
+  margin:7px 0
+}
+.Musicband-help-panel details {
+  border-top:1px solid var(--appearance-neutral-border, #555);
+  margin-top:10px
+}
+.Musicband-help-panel summary {
+  cursor:pointer;
+  min-height:44px;
+  padding:12px 0;
+  font-weight:650
+}
+.Musicband-help-panel ol,.Musicband-instructions ol {
+  padding-left:24px
+}
+.Musicband-help-panel li,.Musicband-instructions li {
+  margin:7px 0
+}
+.Musicband-instructions {
+  font:calc(13px * var(--appearance-scale, 1))/1.6 system-ui;
+  color:var(--appearance-neutral-text, #bdbdbd);
+  margin:8px 0 16px
+}
+.Musicband-instructions>summary {
+  font-size:calc(12px * var(--appearance-scale, 1));
+  cursor:pointer;
+  min-height:44px;
+  padding:12px 0;
+  width:fit-content
+}
+.Musicband-instructions p {
+  font-size:calc(13px * var(--appearance-scale, 1));
+  margin:8px 0
+}
+.Musicband-instructions[open] {
+  border-bottom:1px solid var(--appearance-neutral-border, #555);
+  padding-bottom:10px
+}
+.Musicband-help-menu summary:focus-visible,.Musicband-instructions>summary:focus-visible {
+  outline:2px solid var(--appearance-accent, #ed737b);
+  outline-offset:3px
+}
+.Musicband-header>.Musicband-help-menu {
+  order:2
+}
+@media print {
+  .Musicband-help-menu,.Musicband-instructions {
+    display:none!important
+  }
+}
+/* Styles web/field_visibility.php : uniquement présentation. */
+.field-choice {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:44px;
+  margin:4px 0
+}
+.field-choice input {
+  width:20px;
+  min-height:20px;
+  flex:none
+}
+.field-module>summary {
+  cursor:pointer;
+  padding:14px 0;
+  font-weight:600;
+  min-height:44px
+}
+.field-module fieldset {
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:10px;
+  margin:12px 0;
+  padding:12px
+}
+/* Styles web/upgrade.php : uniquement présentation. */
+.upgrade-instructions>summary {
+  font-size:calc(12px * var(--appearance-scale, 1));
+  min-height:44px;
+  padding:12px 0;
+  cursor:pointer
+}
+.upgrade-instructions>summary:focus-visible {
+  outline:2px solid var(--appearance-accent, #ed737b);
+  outline-offset:3px
+}
+.upgrade-confirm {
+  display:flex;
+  gap:10px;
+  align-items:flex-start
+}
+.upgrade-confirm input {
+  width:20px;
+  min-height:20px;
+  flex:none
+}
+/* Utilitaires explicites : remplacent les anciens attributs style statiques. */
+.Musicband-wide-field {
+  width:100%;
+  max-width:100%;
+  font:inherit
+}
+.Musicband-inherit-color {
+  color:inherit
+}
+.Musicband-wrap {
+  overflow-wrap:anywhere
+}
+.Musicband-checkbox {
+  width:20px;
+  min-height:20px;
+  flex:none
+}
+.Musicband-touch-target {
+  min-height:44px
+}
+.Musicband-textarea {
+  width:100%;
+  font:inherit;
+  background:var(--appearance-neutral-bg, #151515);
+  color:inherit;
+  padding:12px
+}
+.Musicband-footer {
+  margin-top:24px;
+  padding:12px 0;
+  border-top:1px solid var(--appearance-neutral-border, #555);
+  color:var(--appearance-neutral-text, #bbb);
+  font-size:calc(12px * var(--appearance-scale, 1))
+}
+.Musicband-check-label {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:44px
+}
+/* Ordinateur : les actions suivent leur libellé, les formulaires restent lisibles.
+   Les tableaux et les groupes métier gardent toute la largeur disponible.
+   Les règles tactiles existantes restent prioritaires sous 900 px. */
+@media screen and (min-width:900px) {
+  body {
+    max-width:1600px!important;
+    margin-inline:auto!important;
+    padding:20px 28px!important
+  }
+  .Musicband-managed main>form:not([data-business-editor]):not(#songs-bulk) {
+    max-width:960px
+  }
+  .Musicband-managed main>section:not(.Musicband-related):not(.business-table-section):not(.field-layout-root) {
+    max-width:1040px
+  }
+  .Musicband-managed main>details {
+    max-width:1100px
+  }
+  .Musicband-managed button {
+    width:auto;
+    max-width:100%;
+    min-height:38px;
+    padding:8px 16px;
+    margin-top:10px
+  }
+  .Musicband-managed input:not([type=checkbox]):not([type=radio]),.Musicband-managed select {
+    min-height:38px;
+    padding:8px 10px
+  }
+  .Musicband-managed form[data-business-editor]>button {
+    justify-self:start;
+    grid-column:1/-1
+  }
+  .Musicband-managed form>button+button {
+    margin-left:8px
+  }
+  .Musicband-managed fieldset {
+    min-width:0
+  }
+  .Musicband-managed section {
+    padding:16px 20px
+  }
+  .Musicband-managed label {
+    margin-top:10px
+  }
+  .Musicband-managed .Musicband-related,.Musicband-managed .business-table-section {
+    width:100%;
+    max-width:none
+  }
+  .Musicband-managed .config-section {
+    max-width:1440px
+  }
+  .Musicband-managed .config-section>section form>button {
+    display:inline-flex;
+    align-items:center
+  }
+  #create-setlist form {
+    max-width:680px
+  }
+  .business-table-scroll th,.business-table-scroll td {
+    padding:10px 14px
+  }
+  .business-toolbar #business-search {
+    flex:0 1 600px
+  }
+}
+
+/* Une liste groupée reste large ; une tablette garde ses cibles tactiles. */
+@media screen and (min-width:900px) {
+  .Musicband-managed #songs-bulk {max-width:none;width:100%;}
+}
+@media screen and (min-width:900px) and (pointer:coarse) {
+  .Musicband-managed button,.Musicband-managed input:not([type=checkbox]):not([type=radio]),.Musicband-managed select {min-height:44px;}
+}
+
+/* Palette commune et système de design Musicband unifié (référence : Gestion des tâches) */
+:root {
+  /* Surfaces et fonds */
+  --Musicband-bg: #101010;
+  --Musicband-surface: #191919;
+  --Musicband-surface-card: #1c1c1c;
+  --Musicband-surface-elevated: #242424;
+  --Musicband-surface-hover: #2a2a2a;
+  --Musicband-surface-active: #303030;
+
+  /* Bordures et séparateurs */
+  --Musicband-line: #383838;
+  --Musicband-line-light: #555555;
+  --Musicband-line-dark: #282828;
+
+  /* Textes */
+  --Musicband-text: #f5f5f5;
+  --Musicband-text-muted: #a0a0a0;
+  --Musicband-text-dim: #777777;
+
+  /* Accent principal (Rouge sobre Musicband) */
+  --Musicband-primary: #b91c1c;
+  --Musicband-primary-hover: #dc2626;
+  --Musicband-primary-border: #ef4444;
+  --Musicband-primary-accent: #ed737b;
+  --Musicband-primary-subtle: #251818;
+  --Musicband-primary-subtle-border: #63262b;
+
+  /* Boutons et éléments secondaires neutres */
+  --Musicband-secondary-bg: #242424;
+  --Musicband-secondary-border: #383838;
+  --Musicband-secondary-text: #dddddd;
+  --Musicband-secondary-hover: #303030;
+
+  /* Statuts métier */
+  --Musicband-danger-bg: #451212;
+  --Musicband-danger-border: #dc2626;
+  --Musicband-danger-text: #fca5a5;
+
+  --Musicband-success-bg: #143823;
+  --Musicband-success-border: #16a34a;
+  --Musicband-success-text: #86efac;
+
+  --Musicband-warning-bg: #332b17;
+  --Musicband-warning-border: #ca8a04;
+  --Musicband-warning-text: #fde047;
+
+  --Musicband-info-bg: #1e3a5f;
+  --Musicband-info-border: #2563eb;
+  --Musicband-info-text: #93c5fd;
+
+  /* Rayons de courbure standardisés */
+  --Musicband-radius-sm: 4px;
+  --Musicband-radius-md: 8px;
+  --Musicband-radius-lg: 12px;
+
+  /* Tableaux standardisés */
+  --Musicband-table-head: #242424;
+  --Musicband-table-odd: #191919;
+  --Musicband-table-even: #202020;
+  --Musicband-table-text: #f5f5f5;
+
+  /* Alias pour compatibilité descendante */
+  --bg: var(--Musicband-bg);
+  --surface: var(--Musicband-surface);
+  --panel: var(--Musicband-surface-card);
+  --line: var(--Musicband-line);
+  --accent: var(--Musicband-primary-accent);
+}
+/* Les cellules portent aussi le fond : certains modules colorent leurs cellules. */
+body table > thead > tr > :is(th,td),
+body table > tr > th,
+body table > tbody > tr > th[scope="col"],
+body [role="columnheader"],
+body .sheet .legend {
+  background: var(--Musicband-table-head) !important;
+  color: var(--Musicband-table-text) !important;
+}
+body table > tbody > tr:nth-child(odd),
+body table > tbody > tr:nth-child(odd) > td,
+body table > tr:nth-child(odd) > td,
+body [role="rowgroup"] > [role="row"]:nth-child(odd),
+body .sheet #rows > .song:nth-child(odd) {
+  background: var(--Musicband-table-odd);
+  color: var(--Musicband-table-text);
+}
+body table > tbody > tr:nth-child(even),
+body table > tbody > tr:nth-child(even) > td,
+body table > tr:nth-child(even) > td,
+body [role="rowgroup"] > [role="row"]:nth-child(even),
+body .sheet #rows > .song:nth-child(even) {
+  background: var(--Musicband-table-even);
+  color: var(--Musicband-table-text);
+}
+/* Conserver un repère de survol sans effacer l'alternance. */
+body table > tbody > tr:hover > td { box-shadow: inset 0 1px var(--appearance-neutral-muted, #777), inset 0 -1px var(--appearance-neutral-muted, #777); }
+body table > tbody > tr > td a { color: var(--appearance-neutral-text, #eee); }
+@media print {
+  body table, body .sheet { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* Agenda : hiérarchie année/mois native, sans JavaScript. */
+.agenda-year { margin: 14px 0; border: 1px solid var(--appearance-neutral-muted, #777); border-radius: 8px; }
+.agenda-year > summary { padding: 12px; font-size: 1.4rem; font-weight: 700; cursor: pointer; }
+.agenda-year summary small { font-size: .8rem; font-weight: 400; }
+.agenda-month { margin: 0 12px 12px; border-top: 1px solid var(--appearance-neutral-muted, #777); }
+.agenda-month > summary { padding: 12px 0; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+.agenda-event { display: grid; grid-template-columns: 80px minmax(0,1fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--appearance-neutral-border, #666); }
+.agenda-date { text-align: center; align-self: start; padding: 8px 4px; background: var(--appearance-neutral-line, #3b3b3b); color: var(--appearance-neutral-text, #fff); border-radius: 6px; border-top: 3px solid #a32323; }
+.agenda-date strong { display: block; font-size: 2rem; line-height: 1.15; }
+.agenda-date span { font-size: .85rem; }
+.agenda-event-content { min-width: 0; overflow-wrap: anywhere; }
+.agenda-event-content h3 { margin: 0 0 8px; font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); line-height: 1.25; }
+.agenda-when { font-weight: 600; color: var(--appearance-neutral-muted, #a3a3a3); }
+@media(max-width:600px) {
+  .agenda-event { grid-template-columns: 60px minmax(0,1fr); gap: 10px; }
+  .agenda-month { margin-left: 8px; margin-right: 8px; }
+}
+
+/* Morceaux : navigation de ligne, alternative native sur le titre et booléens nullable. */
+.song-list-row { cursor:pointer; }
+.song-list-row:focus-visible { outline:3px solid #a32323; outline-offset:-3px; }
+.song-list-row:hover > td { box-shadow:inset 0 1px var(--appearance-neutral-muted, #888),inset 0 -1px var(--appearance-neutral-muted, #888); }
+.song-boolean { display:flex; flex-wrap:wrap; gap:8px 16px; }
+.song-boolean label { display:inline-flex; align-items:center; gap:6px; min-height:44px; }
+
+/* Formulaire Morceaux uniquement : cartes naturelles et contrôles nullable conservés. */
+.Musicband-managed main>form.song-form {
+  display:block;
+  width:100%;
+  max-width:1200px;
+  margin-inline:auto;
+}
+.song-form,.song-form * { box-sizing:border-box; }
+.song-form .field-layout-sections { align-items:start; gap:16px; }
+.song-form .field-layout-group { padding:16px; margin:0; overflow-wrap:normal; }
+.song-form .field-layout-group h3 { margin:0 0 12px; line-height:1.3; }
+.song-form .field-layout-group .field-layout-grid {
+  grid-template-columns:minmax(0,1fr);
+  gap:12px;
+  align-items:start;
+}
+.song-form .song-field {
+  display:block;
+  min-width:0;
+  margin:0;
+  font-size:1rem;
+  line-height:1.4;
+  overflow-wrap:break-word;
+}
+.song-form .song-field>strong { display:block; font-weight:600; }
+.song-form .song-field-wide { grid-column:1/-1; }
+.song-form .song-field>input,.song-form .song-field>select,.song-form textarea {
+  display:block;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  min-height:38px;
+  margin-top:5px;
+  padding:8px 10px;
+  border:1px solid var(--appearance-neutral-border, #666);
+  border-radius:9px;
+  background:var(--appearance-neutral-bg, #151515);
+  color:inherit;
+  font:inherit;
+}
+.song-form textarea { min-height:112px; resize:vertical; }
+.song-form:is(input,select,textarea):focus-visible {
+  outline:2px solid #a32323;
+  outline-offset:2px;
+}
+.song-form:is(input,select,textarea):disabled { opacity:.65; }
+.song-form .song-boolean { gap:6px 12px; margin-top:5px; }
+.song-form .song-boolean label {
+  display:inline-flex;
+  flex:0 1 auto;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  min-height:44px;
+  margin:0;
+  padding:4px 8px;
+  border:1px solid var(--appearance-neutral-border, #555);
+  border-radius:9px;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:normal;
+}
+.song-form .song-boolean input[type=checkbox] {
+  flex:0 0 18px;
+  width:18px;
+  height:20px;
+  min-height:20px;
+  margin:0;
+  accent-color:#a32323;
+}
+.song-form .song-boolean label:has(input:checked) { border-color:#a32323; background:#292323; }
+/* Les colonnes suivent la largeur réelle du formulaire, y compris sur tablette. */
+@container Musicband-fields (min-width:760px) {
+  .song-form .field-layout-sections { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .song-form .field-layout-group:first-child .field-layout-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+/* Morceaux & Audit : sections de recherche et constructeur avancé. */
+.Musicband-managed:is(.Musicband-search-collapsible, main>form:is(#songs-search,#audit-search)) {max-width:1200px}
+.songs-search-bar {display:flex;flex-wrap:wrap;align-items:end;gap:8px}
+.songs-search-bar>label {flex:1 1 220px;min-width:0;margin:0}
+.songs-search-bar input {width:100%;box-sizing:border-box}
+:is(#songs-search,#audit-search) button {margin:0;min-height:40px}
+:is(#songs-advanced,#audit-advanced) {margin-top:12px;padding:12px;border:1px solid var(--appearance-neutral-muted, #888);border-radius:8px;min-width:0}
+:is(#songs-advanced,#audit-advanced)[hidden] {display:none!important}
+:is(#songs-advanced,#audit-advanced)>p {font-size:calc(13px * var(--appearance-scale, 1));margin:8px 0}
+:is(#songs-builder,#audit-builder) {font-size:calc(14px * var(--appearance-scale, 1));color:inherit}
+:is(#songs-builder,#audit-builder) .rules-group-container {padding:12px;border:1px solid var(--appearance-neutral-text, #aaa);border-left:3px solid var(--appearance-neutral-muted, #888);border-radius:6px;margin:8px 0;background:transparent;min-width:0}
+:is(#songs-builder,#audit-builder) .rules-group-container .rules-group-container {margin-left:12px}
+:is(#songs-builder,#audit-builder) .rules-group-header,:is(#songs-builder,#audit-builder) .group-actions,:is(#songs-builder,#audit-builder) .group-conditions {display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+:is(#songs-builder,#audit-builder) .rules-group-header {justify-content:space-between;margin-bottom:8px}
+:is(#songs-builder,#audit-builder) .group-actions {order:2}
+:is(#songs-builder,#audit-builder) .group-conditions {order:1}
+:is(#songs-builder,#audit-builder) .group-conditions label {display:inline-flex;align-items:center;gap:4px;padding:5px 8px;margin:0;border:1px solid var(--appearance-neutral-text, #aaa);border-radius:4px;cursor:pointer;min-height:40px;box-sizing:border-box}
+:is(#songs-builder,#audit-builder) .group-conditions input {width:18px;height:18px;min-height:0;margin:0;flex:none;accent-color:var(--appearance-neutral-border, #555)}
+:is(#songs-builder,#audit-builder) .active {box-shadow:inset 0 -3px #b52e38;font-weight:700}
+:is(#songs-builder,#audit-builder) .rule-container {display:flex;align-items:start;gap:8px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--appearance-neutral-text, #aaa);min-width:0}
+:is(#songs-builder,#audit-builder) .rule-filter-container {flex:1 1 180px;min-width:0}
+:is(#songs-builder,#audit-builder) .rule-operator-container {flex:1 1 140px;min-width:0}
+:is(#songs-builder,#audit-builder) .rule-value-container {flex:1 1 180px;min-width:0}
+:is(#songs-builder,#audit-builder) .rule-header {order:4}
+:is(#songs-builder,#audit-builder) select,:is(#songs-builder,#audit-builder) .rule-value-container input {width:100%;box-sizing:border-box;min-height:40px;margin:0}
+:is(#songs-builder,#audit-builder) .error-container:empty {display:none}
+:is(#songs-builder,#audit-builder) .error-container {color:#a4212a;flex-basis:100%;font-weight:600}
+:is(#songs-builder,#audit-builder) .has-error {border-color:#a4212a}
+:is(#songs-filter-error,#audit-filter-error) {color:#a4212a;font-weight:600}
+@media(max-width:600px){
+  :is(#songs-advanced,#audit-advanced) {padding:8px}
+  :is(#songs-builder,#audit-builder) .rules-group-container {padding:8px}
+  :is(#songs-builder,#audit-builder) .rules-group-container .rules-group-container {margin-left:4px}
+  :is(#songs-builder,#audit-builder) .rule-container>div:not(.error-container) {flex-basis:100%}
+  :is(#songs-builder,#audit-builder) .rule-header {text-align:right}
+}
+
+/* Liste Morceaux : sélection intégrée au titre, sans colonne technique. */
+.song-title-choice {display:flex;align-items:center;gap:8px;min-width:0}
+.song-title-choice>a {min-width:0;overflow-wrap:anywhere}
+.song-title-choice .song-select {display:inline-flex;align-items:center;justify-content:center;flex:0 0 32px;min-height:44px;margin:0;cursor:pointer}
+.song-select input[type="checkbox"] {width:18px;height:18px;min-height:0;margin:0;flex:none}
+
+/* Filtres partagés à côté de Recherche avancée, repli naturel sur mobile. */
+.songs-search-bar .song-filter-preset {display:inline-flex;align-items:center;min-height:40px;max-width:100%;padding:6px 10px;border:1px solid var(--appearance-neutral-muted, #888);border-radius:6px;box-sizing:border-box;color:inherit;text-decoration:none;overflow-wrap:anywhere}
+.songs-search-bar .song-filter-preset.is-active {font-weight:700;box-shadow:inset 0 -3px #b52e38}
+.song-filter-preset:focus-visible {outline:2px solid #b52e38;outline-offset:3px}
+:is(#songs-filter-save,#audit-filter-save)[hidden],:is(#songs-filter-delete,#audit-filter-delete)[hidden],:is(#songs-filter-store,#audit-filter-store)[hidden] {display:none!important}
+
+/* ==========================================================================
+   Sections de recherche et filtrage repliables avec fermeture automatique
+   ========================================================================== */
+
+.Musicband-search-collapsible {
+  margin: 14px 0 20px;
+  border: 1px solid var(--line, #383838);
+  border-radius: 8px;
+  background: var(--surface, #1e1e1e);
+  box-sizing: border-box;
+}
+
+/* En-tête cliquable (summary) */
+.Musicband-search-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  min-height: 44px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  font-weight: 600;
+  background: var(--panel, #252525);
+  border-radius: 7px;
+  box-sizing: border-box;
+  transition: background 0.15s ease;
+}
+
+.Musicband-search-header::-webkit-details-marker,
+.Musicband-search-header::marker {
+  display: none !important;
+}
+
+.Musicband-search-header:hover {
+  background: var(--appearance-neutral-elevated, #2c2c2c);
+}
+
+.Musicband-search-header:focus-visible {
+  outline: 2px solid #b52e38;
+  outline-offset: -2px;
+}
+
+/* Groupe titre + chevron + résumé */
+.Musicband-search-header-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Indicateur chevron discret */
+.Musicband-search-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--appearance-neutral-text, #aaa);
+}
+
+.Musicband-search-chevron svg {
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+/* Rotation fluide à l'ouverture */
+.Musicband-search-collapsible[open] > .Musicband-search-header .Musicband-search-chevron svg {
+  transform: rotate(90deg);
+}
+
+.Musicband-search-title {
+  font-size: calc(14px * var(--appearance-scale, 1));
+  font-weight: 600;
+  color: var(--appearance-neutral-text, #eee);
+  white-space: nowrap;
+}
+
+/* Résumé des critères actifs */
+.Musicband-search-summary-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: calc(13px * var(--appearance-scale, 1));
+  font-weight: 400;
+  color: var(--appearance-neutral-muted, #888);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.Musicband-search-summary-badge.is-active {
+  color: var(--appearance-neutral-text, #f0f0f0);
+  background: var(--appearance-neutral-elevated, #303030);
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid var(--appearance-neutral-border, #4a4a4a);
+}
+
+/* Action rapide de réinitialisation dans l'en-tête replié */
+.Musicband-search-quick-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 2px 10px;
+  font-size: calc(12px * var(--appearance-scale, 1));
+  font-weight: 600;
+  color: #ed737b;
+  background: #2a181a;
+  border: 1px solid #63262b;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.Musicband-search-quick-reset:hover {
+  background: #3d1f22;
+  color: #ff8890;
+  border-color: #832e35;
+}
+
+.Musicband-search-quick-reset:focus-visible {
+  outline: 2px solid #b52e38;
+  outline-offset: 2px;
+}
+
+.Musicband-search-quick-reset[hidden] {
+  display: none !important;
+}
+
+/* Contenu de la section (formulaire de recherche et critères) */
+.Musicband-search-body {
+  padding: 14px;
+  border-top: 1px solid var(--line, #333);
+}
+
+.Musicband-search-body form {
+  margin: 0;
+}
+
+.Musicband-search-body .business-toolbar {
+  margin: 0;
+}
+
+.business-toolbar #business-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.business-toolbar #business-search>label {
+  flex: 1 1 200px;
+  min-width: 0;
+  margin: 0;
+}
+
+.business-toolbar #business-search button {
+  margin: 0;
+  min-height: 38px;
+  white-space: nowrap;
+}
+
+/* Respect de la préférence utilisateur pour réduction de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .Musicband-search-chevron svg,
+  .Musicband-search-body {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Composants et hiérarchie visuelle standardisés Musicband
+   Référence de référence : Gestion des tâches (tasks.php)
+   ========================================================================== */
+
+/* 1. Boutons et actions */
+.Musicband-managed button {
+  margin-top: 0;
+}
+
+.button,
+.Musicband-managed button {
+  font: inherit;
+  font-size: calc(13px * var(--appearance-scale, 1));
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--Musicband-radius-sm, 4px);
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* Bouton principal (Action d'enregistrement, création, validation) */
+.button-primary,
+.Musicband-managed form.primary-form > button,
+.Musicband-managed section form > button:only-of-type {
+  background: var(--Musicband-primary, #b91c1c);
+  color: #fff !important;
+  border: 1px solid var(--Musicband-primary-border, #ef4444);
+  padding: 6px 14px;
+  min-height: 38px;
+  font-weight: 600;
+}
+.button-primary:hover,
+.Musicband-managed form.primary-form > button:hover,
+.Musicband-managed section form > button:only-of-type:hover {
+  background: var(--Musicband-primary-hover, #dc2626);
+  border-color: var(--Musicband-primary-accent, #ed737b);
+}
+
+/* Bouton secondaire (Navigation, annulation, filtres, options) */
+.button-secondary {
+  background: var(--Musicband-secondary-bg, #242424);
+  color: var(--Musicband-secondary-text, #ddd) !important;
+  border: 1px solid var(--Musicband-secondary-border, #383838);
+  padding: 6px 12px;
+  min-height: 38px;
+  font-weight: 500;
+}
+.button-secondary:hover {
+  background: var(--Musicband-secondary-hover, #303030);
+  border-color: var(--Musicband-line-light, #555);
+  color: var(--appearance-neutral-text, #fff) !important;
+}
+
+/* Bouton destructif / danger */
+.button-danger {
+  background: var(--Musicband-danger-bg, #451212);
+  color: var(--Musicband-danger-text, #fca5a5) !important;
+  border: 1px solid var(--Musicband-danger-border, #dc2626);
+  padding: 6px 12px;
+  min-height: 38px;
+  font-weight: 600;
+}
+.button-danger:hover {
+  background: #5a1818;
+  border-color: #ef4444;
+  color: #fecaca !important;
+}
+
+/* Boutons d'action compacts en ligne ou tableau */
+.button-action,
+.task-action-btn {
+  padding: 4px 8px;
+  font-size: calc(12px * var(--appearance-scale, 1));
+  background: var(--Musicband-surface-hover, #2a2a2a);
+  border: 1px solid var(--Musicband-line, #444);
+  border-radius: var(--Musicband-radius-sm, 4px);
+  color: var(--appearance-neutral-text, #eee) !important;
+  min-height: 28px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button-action:hover,
+.task-action-btn:hover {
+  background: var(--Musicband-line, #383838);
+}
+
+.button-action.button-success,
+.task-btn-done {
+  border-color: var(--Musicband-success-border, #16a34a);
+  color: var(--Musicband-success-text, #86efac) !important;
+}
+.button-action.button-success:hover,
+.task-btn-done:hover {
+  background: var(--Musicband-success-bg, #143823);
+}
+
+.button-action.button-muted {
+  background: var(--Musicband-secondary-bg, #242424);
+  color: var(--Musicband-text-muted, #a0a0a0) !important;
+  border-color: var(--Musicband-secondary-border, #383838);
+}
+
+.task-muted-text {
+  color: var(--Musicband-text-dim, #777);
+  font-style: italic;
+  font-size: calc(12px * var(--appearance-scale, 1));
+}
+
+/* 2. Formulaires et groupements */
+.form-group,
+.task-form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-row,
+.task-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.form-actions,
+.task-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* 3. Cartes et panneaux réutilisables */
+.app-card {
+  background: var(--Musicband-surface-card, #1c1c1c);
+  border: 1px solid var(--Musicband-line, #383838);
+  border-radius: var(--Musicband-radius-md, 8px);
+  padding: 16px;
+  margin: 16px 0;
+  box-sizing: border-box;
+}
+.app-card--elevated {
+  background: var(--Musicband-surface-elevated, #242424);
+}
+.app-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--Musicband-line, #383838);
+  padding-bottom: 10px;
+}
+.app-card-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--Musicband-text, #f5f5f5);
+}
+.app-card-body {
+  min-width: 0;
+}
+
+/* 4. Badges de statut standardisés */
+.status-badge,
+.task-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--Musicband-radius-sm, 4px);
+  font-size: calc(12px * var(--appearance-scale, 1));
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.task-category-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--appearance-neutral-elevated, #2b2b2b);
+  border-radius: var(--Musicband-radius-sm, 4px);
+  font-size: calc(12px * var(--appearance-scale, 1));
+  color: var(--appearance-neutral-text, #ddd);
+}
+.status-badge--neutral,
+.task-status-a_faire {
+  background: var(--appearance-neutral-elevated, #262626);
+  color: #d1d5db;
+  border: 1px solid var(--appearance-neutral-line, #444);
+}
+.status-badge--info,
+.task-status-en_cours {
+  background: var(--Musicband-info-bg, #1e3a5f);
+  color: var(--Musicband-info-text, #93c5fd);
+  border: 1px solid var(--Musicband-info-border, #2563eb);
+}
+.status-badge--success,
+.task-status-terminee {
+  background: var(--Musicband-success-bg, #143823);
+  color: var(--Musicband-success-text, #86efac);
+  border: 1px solid var(--Musicband-success-border, #16a34a);
+}
+.status-badge--danger,
+.status-badge--overdue,
+.task-badge-overdue,
+.task-overdue-tag {
+  background: var(--Musicband-danger-bg, #451212);
+  color: var(--Musicband-danger-text, #fca5a5);
+  border: 1px solid var(--Musicband-danger-border, #dc2626);
+  font-size: calc(11px * var(--appearance-scale, 1));
+  font-weight: 700;
+  padding: 2px 6px;
+}
+.status-badge--warning,
+.task-badge-archived {
+  background: var(--Musicband-warning-bg, #332b17);
+  color: var(--Musicband-warning-text, #fde047);
+  border: 1px solid var(--Musicband-warning-border, #ca8a04);
+}
+.status-badge--muted,
+.task-status-annulee {
+  background: var(--Musicband-secondary-bg, #242424);
+  color: var(--appearance-neutral-muted, #888);
+  border: 1px solid var(--Musicband-line, #383838);
+  text-decoration: line-through;
+}
+.overdue-inline-tag {
+  color: #f87171;
+  font-weight: 600;
+  font-size: calc(12px * var(--appearance-scale, 1));
+}
+
+/* 5. Harmonisation de l'affichage tabulaire */
+.Musicband-managed table {
+  border-collapse: collapse;
+}
+.Musicband-managed table th,
+.Musicband-managed table td {
+  padding: 10px 14px;
+}
+
+
+/* Apparence personnelle : uniquement à l'écran, sans affecter impression/PDF.
+ * Les styles préparés par site.py réutilisent les valeurs historiques comme replis.
+ */
+@media screen {
+  html[data-appearance-theme] {
+    font-size: calc(100% * var(--appearance-scale, 1));
+  }
+  html[data-appearance-theme="dark"] { color-scheme: dark; }
+  html[data-appearance-theme="light"] {
+    color-scheme: light;
+    --Musicband-bg: #ffffff;
+    --Musicband-surface: #f8f8f8;
+    --Musicband-surface-card: #f4f4f4;
+    --Musicband-surface-elevated: #ececec;
+    --Musicband-surface-hover: #e6e6e6;
+    --Musicband-surface-active: #e0e0e0;
+    --Musicband-line: #cccccc;
+    --Musicband-line-light: #777777;
+    --Musicband-line-dark: #dddddd;
+    --Musicband-text: #181818;
+    --Musicband-text-muted: #555555;
+    --Musicband-text-dim: #666666;
+    --Musicband-secondary-bg: var(--Musicband-surface-elevated);
+    --Musicband-secondary-border: var(--Musicband-line);
+    --Musicband-secondary-text: var(--Musicband-text);
+    --Musicband-secondary-hover: var(--Musicband-surface-active);
+    --Musicband-table-head: var(--Musicband-surface-elevated);
+    --Musicband-table-odd: var(--Musicband-surface);
+    --Musicband-table-even: var(--Musicband-surface-card);
+    --Musicband-table-text: var(--Musicband-text);
+    /* Ponts pour les anciennes couleurs fixes ; les valeurs sombres restent les replis. */
+    --appearance-neutral-bg: var(--Musicband-bg);
+    --appearance-neutral-card: var(--Musicband-surface-card);
+    --appearance-neutral-elevated: var(--Musicband-surface-elevated);
+    --appearance-neutral-line: var(--Musicband-line);
+    --appearance-neutral-border: var(--Musicband-line-light);
+    --appearance-neutral-muted: var(--Musicband-text-muted);
+    --appearance-neutral-text: var(--Musicband-text);
+    --Musicband-primary-accent: #a31524;
+    --appearance-accent: var(--Musicband-primary-accent);
+    --Musicband-primary-subtle: #fff1f2;
+    --Musicband-primary-subtle-border: #b45360;
+    --Musicband-danger-bg: #fff1f2;
+    --Musicband-danger-text: #991b1b;
+    --Musicband-success-bg: #ecfdf5;
+    --Musicband-success-text: #166534;
+    --Musicband-warning-bg: #fffbeb;
+    --Musicband-warning-text: #854d0e;
+    --Musicband-info-bg: #eff6ff;
+    --Musicband-info-text: #1e40af;
+  }
+  html[data-appearance-theme] :is(.Musicband-logo,.Musicband-home-logo img,header img) { background: white; }
+  #appearance-preferences { max-width: 100%; }
+  #appearance-preferences .layout-tools { flex-wrap: wrap; }
+  #appearance-preferences button { white-space: normal; }
+}
+@media print {
+  :root { --appearance-scale: 1 !important; }
+}
+
+/* Assistant autonome : composants du thème auth, sans effet sur les écrans authentifiés. */
+.community-install { max-width: 760px; }
+.community-install .installation-header {
+  border-bottom: 1px solid var(--appearance-neutral-line, #444);
+  padding-bottom: 16px;
+}
+.community-install .installation-brand {
+  margin: 0 0 6px;
+  color: var(--appearance-neutral-text, #bbb);
+  font-size: calc(14px * var(--appearance-scale, 1));
+}
+.community-install h1 { margin: 0; }
+.community-install .installation-form fieldset {
+  min-width: 0;
+  margin: 24px 0 0;
+  padding: 8px 20px 20px;
+  border: 1px solid var(--appearance-neutral-line, #444);
+  border-radius: 16px;
+  background: var(--appearance-neutral-card, #1c1c1c);
+}
+.community-install .installation-form legend {
+  max-width: 100%;
+  padding: 0 8px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.community-install .installation-form input { display: block; margin-top: 8px; }
+.community-install .installation-check { background: var(--appearance-neutral-elevated, #262626); border-color: var(--appearance-neutral-border, #666); }
+.community-install .installation-check:hover { background: var(--appearance-neutral-line, #333); border-color: var(--appearance-neutral-muted, #999); }
+.community-install .installation-footer {
+  margin-top: 24px;
+  color: var(--appearance-neutral-text, #bbb);
+  font-size: calc(13px * var(--appearance-scale, 1));
+}
+@media (max-width: 480px) {
+  .community-install .installation-form fieldset { padding: 8px 12px 12px; }
+}
+
+/* Résultat de l'installation : contraste explicite, indépendant du thème des écrans authentifiés. */
+.community-install .installation-notice {
+  display: block;
+  background: var(--appearance-neutral-text, #fff);
+  color: var(--appearance-neutral-bg, #111);
+  border: 2px solid var(--appearance-neutral-muted, #777);
+  padding: 16px;
+  margin: 16px 0;
+  scroll-margin-top: 16px;
+  overflow-wrap: anywhere;
+}
+.community-install .installation-notice:is(h2,p) { color: var(--appearance-neutral-bg, #111); }
+.community-install .installation-notice-error { border-left: 6px solid #a32935; }

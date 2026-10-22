@@ -1,0 +1,148 @@
+/* Musicband CSS: web/css/auth.css — styles de présentation, sans logique métier. */
+/* Écrans de compte rendus par MusicbandScreen dans auth.php : connexion, activation et formulaires privés.
+ * Complète le socle partagé ; conserver états de focus, messages et largeur lisible sur mobile.
+ */
+html {
+  color-scheme:dark;
+  background:var(--appearance-neutral-bg, #101010);
+  color:var(--appearance-neutral-text, #f5f5f5);
+  font:calc(16px * var(--appearance-scale, 1)) system-ui
+}
+* {
+  box-sizing:border-box
+}
+body {
+  max-width:650px;
+  margin:auto;
+  padding:24px 16px
+}
+header {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:16px 0 28px
+}
+.Musicband-home-logo {
+  display:inline-flex;
+  align-items:center;
+  flex:none;
+  min-height:44px
+}
+header img {
+  width:64px;
+  background:white;
+  padding:5px;
+  border-radius:8px
+}
+h1 {
+  font-size:calc(25px * var(--appearance-scale, 1));
+  letter-spacing:-.5px
+}
+h2 {
+  font-size:calc(19px * var(--appearance-scale, 1))
+}
+section {
+  background:var(--appearance-neutral-card, #1c1c1c);
+  border:1px solid var(--appearance-neutral-line, #444);
+  border-radius:16px;
+  padding:20px;
+  margin:16px 0
+}
+label {
+  display:block;
+  margin:16px 0 8px
+}
+input,select,button {
+  font:inherit;
+  width:100%;
+  padding:12px;
+  border-radius:9px;
+  border:1px solid var(--appearance-neutral-border, #666);
+  background:var(--appearance-neutral-bg, #151515);
+  color:inherit;
+  min-height:44px
+}
+button {
+  background:var(--Musicband-primary, #b91c1c);
+  color:#fff;
+  border:1px solid var(--Musicband-primary-border, #ef4444);
+  font-weight:600;
+  margin-top:16px;
+  cursor:pointer;
+  transition:background 0.15s ease, border-color 0.15s ease;
+}
+button:hover {
+  background:var(--Musicband-primary-hover, #dc2626);
+  border-color:var(--Musicband-primary-accent, #ed737b);
+}
+p {
+  line-height:1.6;
+  color:var(--appearance-neutral-text, #bbb)
+}
+a {
+  color:inherit
+}
+.notice {
+  border-left:2px solid #b52e38;
+  padding:12px
+}
+.account {
+  margin:10px 0;
+  padding:12px;
+  border-bottom:1px solid var(--appearance-neutral-line, #444)
+}
+input:focus-visible,button:focus-visible,a:focus-visible {
+  outline:2px solid var(--appearance-accent, #ed737b);
+  outline-offset:3px
+}
+
+/* Bouton et séparateur Google Sign-In */
+.google-login-separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 18px 0;
+  color: var(--appearance-neutral-muted, #888);
+}
+.google-login-separator::before,
+.google-login-separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--appearance-neutral-line, #444);
+}
+.google-login-separator span {
+  padding: 0 12px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.google-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  background: var(--appearance-neutral-text, #ffffff);
+  color: var(--appearance-neutral-card, #1f1f1f) !important;
+  border: 1px solid #dadce0;
+  border-radius: 9px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.google-login-btn:hover {
+  background: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.google-login-btn:focus-visible {
+  outline: 3px solid #4285f4;
+  outline-offset: 2px;
+}
+.google-login-btn svg {
+  flex-shrink: 0;
+}
+

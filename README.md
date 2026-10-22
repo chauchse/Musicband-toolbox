@@ -2,11 +2,17 @@
 
 Paquet installable sur un hébergement PHP/MySQL pour gérer les morceaux, setlists, contacts, concerts, tâches et notifications d’un groupe.
 
-Ce dépôt contient uniquement la distribution **2026.10.22.22-community**, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. Le ZIP est une copie de la distribution préparée, sans changement du code applicatif.
+Ce dépôt contient la distribution **2026.10.22.22-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. Le ZIP est une copie de la distribution préparée, sans changement du code applicatif.
 
 ## Télécharger
 
-Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.22.zip`](package/musicband-toolbox-community-2026.10.22.22.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif.
+Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.22.zip`](package/musicband-toolbox-community-2026.10.22.22.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
+
+## Version décompressée
+
+Le dossier [`installation/`](installation/) contient les fichiers exacts du ZIP, dont le code PHP/HTML/JavaScript distribué, les styles, dépendances et règles `.htaccess`. Il permet de consulter le code ou de transférer directement les fichiers sans extraire le paquet. Il ne contient pas les sources ni outils de préparation locaux.
+
+Pour installer depuis cette version, cloner ou télécharger le dépôt, puis transférer **le contenu de `installation/`**, fichiers cachés compris, dans le dossier web choisi. Ne pas transférer le dossier `.git`, `package/` ni le README racine. Suivre ensuite le même parcours `install.php` ou Upgrade ci-dessous. Les fichiers sont copiés sans modification du code ; ils restent soumis à la même validation manuelle que le ZIP.
 
 ## Prérequis
 
@@ -20,7 +26,7 @@ Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-commun
 ## Installer sur un nouvel hébergement
 
 1. Créer une base vide et un utilisateur MySQL dédié. Configurer le domaine et son certificat HTTPS.
-2. Extraire le contenu du ZIP dans le dossier web choisi, éventuellement en sous-répertoire. Conserver les fichiers cachés `.htaccess`, puis retirer l’archive du dossier public.
+2. Extraire le contenu du ZIP, ou transférer le contenu de `installation/`, dans le dossier web choisi, éventuellement en sous-répertoire. Conserver les fichiers cachés `.htaccess`, puis retirer l’archive du dossier public.
 3. Ouvrir `https://votre-domaine/chemin/install.php` et renseigner la connexion MySQL, l’URL HTTPS avec barre finale, le nom de l’application et le premier compte administrateur.
 4. Terminer l’installation immédiatement après transfert : l’assistant est accessible avant sa finalisation, puis verrouillé. Conserver les informations de reprise en cas d’interruption ; ne pas effacer la base ni le dossier privé.
 5. Se connecter et adapter ou retirer les exemples fictifs : cinq morceaux, une setlist, un concert et un contact. Leurs adresses ne doivent pas servir à des envois réels.

@@ -1,0 +1,8 @@
+# Dépôt de distribution : seuls le guide et le paquet explicitement listés sont publiés.
+/*
+!/.gitignore
+!/README.md
+!/package/
+/package/*
+!/package/musicband-toolbox-community-2026.10.22.22.zip
+!/package/SHA256SUMS

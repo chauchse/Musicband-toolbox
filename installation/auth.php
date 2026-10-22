@@ -580,11 +580,12 @@ function MusicbandBetaForm(string $hidden): string {
     foreach (MusicbandHomeModules() as $key=>$label) $html.='<input type="hidden" name="beta['.$key.']" value="0"><label class="Musicband-touch-target" ><input class="Musicband-checkbox" type="checkbox" name="beta['.$key.']" value="1"'.($state[$key]?' checked':'').' >'.MusicbandEscape($label).' · Bêta</label>';
     return $html.'</div><button>Enregistrer les statuts bêta</button></form></section>';
 }
-function MusicbandPwaHead(): string { $base=MusicbandEscape(MusicbandBase());return '<link rel="manifest" href="'.$base.'pwa_manifest.php" crossorigin="use-credentials"><link rel="apple-touch-icon" href="'.$base.'pwa_icon.php?size=192"><meta name="theme-color" content="#101010">'; }
+function MusicbandPwaHead(): string { $base=MusicbandEscape(MusicbandBase());return '<link rel="icon" type="image/png" href="'.$base.'pwa_icon.php?size=favicon"><link rel="manifest" href="'.$base.'pwa_manifest.php" crossorigin="use-credentials"><link rel="apple-touch-icon" href="'.$base.'pwa_icon.php?size=192"><meta name="theme-color" content="#101010">'; }
 function MusicbandUiHtml(string $html): string {
     // Retirer aussi les liens des anciens gabarits préparés, sans changer les réglages enregistrés.
     if (defined('MUSICBAND_COMMUNITY_DISABLED_MODULES')) foreach (MUSICBAND_COMMUNITY_DISABLED_MODULES as $module) $html = preg_replace('~<a\b[^>]*data-(?:Musicband-module|module)="'.preg_quote($module, '~').'"[^>]*>.*?</a>~s', '', $html) ?? $html;
-    if (str_contains($html,'</head>')) { $html=preg_replace('~<link\b[^>]*rel="manifest"[^>]*>~i','',$html)??$html;$html=str_replace('</head>',MusicbandPwaHead().MusicbandAppearanceHead().'</head>',$html); }
+    // Un seul favicon commun remplace celui des anciens gabarits.
+    if (str_contains($html,'</head>')) { $html=preg_replace('~<link\b[^>]*rel="(?:manifest|icon)"[^>]*>~i','',$html)??$html;$html=str_replace('</head>',MusicbandPwaHead().MusicbandAppearanceHead().'</head>',$html); }
     // Les anciennes déclarations inline suivent les mêmes tokens que les feuilles préparées.
     $html = preg_replace_callback('~\bstyle="([^"]*)"~i', function($attribute) {
         $style = preg_replace_callback('~(?<![\w-])(font-size|font)\s*:([^;]+)~i', function($declaration) {
@@ -787,7 +788,7 @@ JS;
 
 // Chemin versionné unique ; les noms de feuilles viennent du code.
 function MusicbandStylesheet(string $name): string {
-    return '<link rel="stylesheet" href="'.MusicbandEscape(MusicbandBase().'css/'.$name.'.css?v=2026.10.22.23-community').'">';
+    return '<link rel="stylesheet" href="'.MusicbandEscape(MusicbandBase().'css/'.$name.'.css?v=2026.10.22.24-community').'">';
 }
 /** Cadre HTML commun : les feuilles portent la mise en page, PHP garde les droits et la CSP. */
 function MusicbandScreen(string $title, string $content, ?string $script = null, bool $connectSelf = false, string $photonUrl = '', string $headerNavigation = ''): void {
@@ -806,7 +807,7 @@ function MusicbandScreen(string $title, string $content, ?string $script = null,
     $title = MusicbandEscape($title);
     echo '<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . $title . ' · Musicband Toolbox</title>'.MusicbandPwaHead().MusicbandAppearanceHead($nonce).MusicbandStylesheet('auth').MusicbandStylesheet('common').MusicbandStylesheet('navigation');
 
-    echo '<body class="Musicband-managed"><header class="Musicband-page-header Musicband-header"><a class="Musicband-home-logo" href="' . MusicbandEscape(MusicbandBase()) . 'index.php" aria-label="Retour à l’accueil"><img src="Musicband_LOGO_URI" alt="Musicband"></a><h1 title="' . $title . '">' . $title . '</h1>'.$headerNavigation.'</header><main>' . $content . '</main><footer class="Musicband-footer" >Version web 2026.10.22.23-community</footer>' . ($script === null ? '' : '<script nonce="' . $nonce . '">' . $script . '</script>') . '</body></html>';
+    echo '<body class="Musicband-managed"><header class="Musicband-page-header Musicband-header"><a class="Musicband-home-logo" href="' . MusicbandEscape(MusicbandBase()) . 'index.php" aria-label="Retour à l’accueil"><img src="Musicband_LOGO_URI" alt="Musicband"></a><h1 title="' . $title . '">' . $title . '</h1>'.$headerNavigation.'</header><main>' . $content . '</main><footer class="Musicband-footer" >Version web 2026.10.22.24-community</footer>' . ($script === null ? '' : '<script nonce="' . $nonce . '">' . $script . '</script>') . '</body></html>';
     if (MusicbandUser()) {
         if (!function_exists('MusicbandNotificationsTriggerFallbackIfOverdue')) {
             @include_once __DIR__ . '/notifications.php';

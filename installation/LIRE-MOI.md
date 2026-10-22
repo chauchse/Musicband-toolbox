@@ -1,5 +1,13 @@
 # MusicBand Toolbox Community — préparation locale Python
 
+## Favicon personnalisable — version 2026.10.22.24-community
+
+Déposer votre image **`favicon.png` à la racine de l’application, à côté d’`index.php`**, y compris si l’application est installée en sous-répertoire. Utiliser un vrai PNG carré de 16 à 1024 pixels de côté, de 1 Mio maximum (par exemple 256 × 256). Aucun chemin ni réglage à saisir. Le fichier n’est pas fourni dans le paquet : une mise à jour ne remplace donc pas votre image. Le favicon des onglets, de la connexion, de l’accueil, des modules et de l’installateur utilise ce fichier ; les icônes PWA et Apple Touch existantes sont conservées.
+
+Un fichier absent, invalide, trop volumineux, non carré ou symbolique laisse l’icône embarquée en repli. La réponse du favicon demande une revalidation du cache ; après remplacement de l’image, recharger la page (le navigateur peut conserver son propre cache d’icônes). Le serveur ne redimensionne ni ne modifie l’image et n’accepte aucun chemin fourni par une requête.
+
+**Non exécuté — validation à réaliser par l’utilisateur** : sur une copie HTTPS sauvegardée, transférer le paquet .24 puis placer un PNG valide à côté d’index.php. Vérifier l’icône dans les onglets de connexion, accueil, catalogue et lecteur Setlist, en racine et en sous-répertoire. Remplacer le PNG et recharger ; vérifier les repli sans fichier et avec fichier invalide, rectangulaire ou supérieur à 1 Mio. Vérifier que `pwa_icon.php?size=192`, `size=512` et `size=maskable` conservent leurs icônes, et qu’une clé inconnue reste refusée. Sur une installation de test neuve, vérifier aussi l’icône de l’installateur. Échec : chemin externe accepté, réponse autre qu’une image PNG, image existante écrasée, icônes PWA changées ou parcours cassé. Aucun test, serveur ou déploiement exécuté. Aucune migration ni réinstallation nécessaire. Retour arrière : restaurer ensemble les fichiers publics .23 en conservant votre favicon, la base et le dossier privé ; le fichier personnalisé sera simplement ignoré par l’ancienne version.
+
 ## Champ Morceau à travailler — version 2026.10.22.23-community
 
 Le champ existant « À travailler pour la prochaine répète » (`next_rehearsal_work`) est désormais proposé dans les fiches, formulaires, filtres et choix de colonnes du catalogue sur le schéma Community simplifié. Il apparaît dans la liste par défaut, sans modifier un choix explicite de colonnes ni réactiver un champ masqué. Les valeurs Oui, Non et Non renseigné restent stockées dans le document JSON SQL existant ; aucune nouvelle colonne, migration ou réinitialisation.

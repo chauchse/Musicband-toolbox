@@ -2,17 +2,25 @@
 
 Paquet installable sur un hébergement PHP/MySQL pour gérer les morceaux, setlists, contacts, concerts, tâches et notifications d’un groupe.
 
-Ce dépôt contient la distribution **2026.10.22.23-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .23 corrige la disponibilité du champ « À travailler pour la prochaine répète » sur le schéma Community simplifié. Le ZIP .22 reste disponible pour retour arrière.
+Ce dépôt contient la distribution **2026.10.22.24-community** en ZIP et en version décompressée, son empreinte SHA-256 et ce guide. Les sources de préparation, outils locaux, sauvegardes, fichiers privés et secrets restent exclus de Git. La version .24 ajoute le favicon personnalisable et conserve le correctif du champ « À travailler pour la prochaine répète ». Les ZIP .22 et .23 restent disponibles pour retour arrière.
 
 ## Télécharger
 
-Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.23.zip`](package/musicband-toolbox-community-2026.10.22.23.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
+Dans le dossier [`package/`](package/), télécharger [`musicband-toolbox-community-2026.10.22.24.zip`](package/musicband-toolbox-community-2026.10.22.24.zip) avec **Download raw file**. L’empreinte figure dans [`SHA256SUMS`](package/SHA256SUMS). Ne pas transférer le dépôt complet sur l’hébergement : extraire le ZIP applicatif ou utiliser le dossier `installation/` décrit ci-dessous.
 
 ## Version décompressée
 
 Le dossier [`installation/`](installation/) contient les fichiers exacts du ZIP, dont le code PHP/HTML/JavaScript distribué, les styles, dépendances et règles `.htaccess`. Il permet de consulter le code ou de transférer directement les fichiers sans extraire le paquet. Il ne contient pas les sources ni outils de préparation locaux.
 
 Pour installer depuis cette version, cloner ou télécharger le dépôt, puis transférer **le contenu de `installation/`**, fichiers cachés compris, dans le dossier web choisi. Ne pas transférer le dossier `.git`, `package/` ni le README racine. Suivre ensuite le même parcours `install.php` ou Upgrade ci-dessous. Les fichiers sont copiés sans modification du code ; ils restent soumis à la même validation manuelle que le ZIP.
+
+## Favicon personnalisable — version 2026.10.22.24-community
+
+Déposer votre image **`favicon.png` à la racine de l’application, à côté d’`index.php`**, y compris si l’application est installée en sous-répertoire. Utiliser un vrai PNG carré de 16 à 1024 pixels de côté, de 1 Mio maximum (par exemple 256 × 256). Aucun chemin ni réglage à saisir. Le fichier n’est pas fourni dans le paquet : une mise à jour ne remplace donc pas votre image. Le favicon des onglets, de la connexion, de l’accueil, des modules et de l’installateur utilise ce fichier ; les icônes PWA et Apple Touch existantes sont conservées.
+
+Un fichier absent, invalide, trop volumineux, non carré ou symbolique laisse l’icône embarquée en repli. La réponse du favicon demande une revalidation du cache ; après remplacement de l’image, recharger la page (le navigateur peut conserver son propre cache d’icônes). Le serveur ne redimensionne ni ne modifie l’image et n’accepte aucun chemin fourni par une requête.
+
+**Non exécuté — validation à réaliser par l’utilisateur** : sur une copie HTTPS sauvegardée, transférer le paquet .24 puis placer un PNG valide à côté d’index.php. Vérifier l’icône dans les onglets de connexion, accueil, catalogue et lecteur Setlist, en racine et en sous-répertoire. Remplacer le PNG et recharger ; vérifier les repli sans fichier et avec fichier invalide, rectangulaire ou supérieur à 1 Mio. Vérifier que `pwa_icon.php?size=192`, `size=512` et `size=maskable` conservent leurs icônes, et qu’une clé inconnue reste refusée. Sur une installation de test neuve, vérifier aussi l’icône de l’installateur. Échec : chemin externe accepté, réponse autre qu’une image PNG, image existante écrasée, icônes PWA changées ou parcours cassé. Aucun test, serveur ou déploiement exécuté. Aucune migration ni réinstallation nécessaire. Retour arrière : restaurer ensemble les fichiers publics .23 en conservant votre favicon, la base et le dossier privé ; le fichier personnalisé sera simplement ignoré par l’ancienne version.
 
 ## Champ Morceau à travailler — version 2026.10.22.23-community
 
@@ -59,7 +67,7 @@ Les migrations de base sont une opération séparée : les migrations 2 et 3 ret
 
 Le paquet inclut catalogue, composition manuelle de setlists, variantes, exports Tempo/SACEM/Excel/impression, contacts, concerts, tâches, agenda iCal, comptes, rôles et notifications. Sound/XR18, authentification Google, publication WordPress, modules financiers et imports externes sont retirés ou désactivés dans Community. La génération automatique de setlists n’est pas portée dans cette distribution PHP.
 
-La validation exhaustive de la PWA et d’une installation neuve sur chaque hébergement reste à effectuer. La version `.23` reprend les fichiers distribués `.22` avec le correctif Morceaux ; aucune reconstruction applicative ni migration exécutée. Aucun test fonctionnel, build, déploiement ou envoi n’a été effectué pour cette publication GitHub.
+La validation exhaustive de la PWA et d’une installation neuve sur chaque hébergement reste à effectuer. La version `.24` reprend les fichiers distribués `.23` avec le favicon personnalisable ; aucune reconstruction applicative ni migration exécutée. Aucun test fonctionnel, build, déploiement ou envoi n’a été effectué pour cette publication GitHub.
 
 **Non exécuté — validation à réaliser par l’utilisateur** : sur une instance HTTPS isolée et sauvegardée, vérifier installation/reprise et verrouillage, connexion, conservation des données, catalogue/setlists/exports, droits, enregistrement du service worker dans le bon périmètre, activation d’un appareil, notification de test volontaire et compte rendu CRON. Vérifier les invitations uniquement avec des destinataires autorisés. Arrêter en cas d’erreur PHP/JavaScript, accès non autorisé, secret exposé, envoi inattendu ou donnée perdue.
 
